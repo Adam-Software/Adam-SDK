@@ -1,8 +1,9 @@
 from ReadHomPos import ReadHomPos
 
 class calcPosServo():
-    def __init__(self):
-        super().__init__()
+
+    #def __init__(self):
+        #super().__init__()
 
 
     def CalcHead(self, GoalPosHeadPer, GoalPosNeckPer):
