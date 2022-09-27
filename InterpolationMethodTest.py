@@ -5,16 +5,15 @@ from InterpolationMethod import calcPosServo
 class MyTestCase(unittest.TestCase):
 
     def testCalcHead(self):
-        calcPosition = calcPosServo
-        positionHead = calcPosition.CalcHead(self, 10, 10)
+        calcPosition = calcPosServo()
+        positionHead = calcPosition.CalcHead(10, 10)
 
         self.assertEqual(positionHead[0], -7452)
         self.assertEqual(positionHead[1], 6800)
 
     def testCalcArms(self):
-        calcPosition = calcPosServo
-        positionArms = calcPosition.CalcArms(self, 1000, 1000, 1000, 1000, 1000,
-                                             1000, 1000, 1000, 1000, 1000,  True)
+        calcPosition = calcPosServo()
+        positionArms = calcPosition.CalcArms(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,  1000, True)
 
         self.assertEqual(positionArms[0], 6747048)
         self.assertEqual(positionArms[1], -1020359)
@@ -26,22 +25,22 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(positionArms[7], 2046075)
 
     def testCalcPress(self):
-        calcPosition = calcPosServo
-        positionPress = calcPosition.CalcPress(self, 1000, 1000)
+        calcPosition = calcPosServo()
+        positionPress = calcPosition.CalcPress(1000, 1000)
 
         self.assertEqual(positionPress[0], -3496300)
         self.assertEqual(positionPress[1], -3296300)
         print(positionPress)
 
     def testCalcBody(self):
-        calcPosition = calcPosServo
-        positionBody = calcPosition.CalcBody(self, 1000)
+        calcPosition = calcPosServo()
+        positionBody = calcPosition.CalcBody(1000)
 
         self.assertEqual(positionBody, 3900000)
 
     def testCalcLeg(self):
-        calcPosition = calcPosServo
-        positionLeg = calcPosition.CalcLeg(self, 1000, 1000, 1000, True)
+        calcPosition = calcPosServo()
+        positionLeg = calcPosition.CalcLeg(1000, 1000, 1000, True)
 
         print(positionLeg)
 
