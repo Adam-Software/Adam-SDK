@@ -6,50 +6,54 @@ class MyTestCase(unittest.TestCase):
 
     def testCalcHead(self):
         calcPosition = calcPosServo()
-        positionHead = calcPosition.CalcHead(10, 10)
+        positionHead = calcPosition.CalcHead(1, 1)
 
-        self.assertEqual(positionHead[0], -7452)
-        self.assertEqual(positionHead[1], 6800)
+        print(positionHead)
+        self.assertEqual(positionHead[0], 1548)
+        self.assertEqual(positionHead[1], 2300)
 
     def testCalcArms(self):
         calcPosition = calcPosServo()
-        positionArms = calcPosition.CalcArms(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,  1000, True)
+        positionArms = calcPosition.CalcArms(1, 1, 1, 1, 1, 1, 1, 1, 1,  1, True)
 
-        self.assertEqual(positionArms[0], 6747048)
-        self.assertEqual(positionArms[1], -1020359)
-        self.assertEqual(positionArms[2], -2044457)
-        self.assertEqual(positionArms[3], -2044382)
-        self.assertEqual(positionArms[4], 6747048)
-        self.assertEqual(positionArms[5], 1024487)
-        self.assertEqual(positionArms[6], 2048799)
-        self.assertEqual(positionArms[7], 2046075)
+        print(positionArms)
+        self.assertEqual(positionArms[0], 8793)
+        self.assertEqual(positionArms[1], 2617)
+        self.assertEqual(positionArms[2], 1495)
+        self.assertEqual(positionArms[3], 1570)
+        self.assertEqual(positionArms[4], 8793)
+        self.assertEqual(positionArms[5], 1511)
+        self.assertEqual(positionArms[6], 2847)
+        self.assertEqual(positionArms[7], 2121)
 
     def testCalcPress(self):
         calcPosition = calcPosServo()
-        positionPress = calcPosition.CalcPress(1000, 1000)
+        positionPress = calcPosition.CalcPress(1, 1)
 
-        self.assertEqual(positionPress[0], -3496300)
-        self.assertEqual(positionPress[1], -3296300)
+        print(positionPress)
+        self.assertEqual(positionPress[0], 200)
+        self.assertEqual(positionPress[1], 400)
         print(positionPress)
 
     def testCalcBody(self):
         calcPosition = calcPosServo()
-        positionBody = calcPosition.CalcBody(1000)
+        positionBody = calcPosition.CalcBody(1)
 
-        self.assertEqual(positionBody, 3900000)
+        print(positionBody)
+        self.assertEqual(positionBody, 3900)
 
     def testCalcLeg(self):
         calcPosition = calcPosServo()
-        positionLeg = calcPosition.CalcLeg(1000, 1000, 1000, True)
+        positionLeg = calcPosition.CalcLeg(1, 1, 1, True)
 
         print(positionLeg)
 
-        self.assertEqual(positionLeg[0], 1496868)
-        self.assertEqual(positionLeg[1], 2991173)
-        self.assertEqual(positionLeg[2], -1492243)
-        self.assertEqual(positionLeg[3], -1492624)
-        self.assertEqual(positionLeg[4], -2987057)
-        self.assertEqual(positionLeg[5], 1496004)
+        self.assertEqual(positionLeg[0], 3363)
+        self.assertEqual(positionLeg[1], 3164)
+        self.assertEqual(positionLeg[2], 2261)
+        self.assertEqual(positionLeg[3], 881)
+        self.assertEqual(positionLeg[4], 952)
+        self.assertEqual(positionLeg[5], 2499)
 
 
 if __name__ == '__main__':
