@@ -1,11 +1,11 @@
 import unittest
-from InterpolationMethod import calcPosServo
+from InterpolationMethods import InterpolationMethods
 
 
 class MyTestCase(unittest.TestCase):
 
     def testCalcHead(self):
-        calcPosition = calcPosServo()
+        calcPosition = InterpolationMethods()
         positionHead = calcPosition.CalcHead(1, 1)
 
         print(positionHead)
@@ -13,7 +13,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(positionHead[1], 2300)
 
     def testCalcArms(self):
-        calcPosition = calcPosServo()
+        calcPosition = InterpolationMethods()
         positionArms = calcPosition.CalcArms(1, 1, 1, 1, 1, 1, 1, 1, 1,  1, True)
 
         print(positionArms)
@@ -27,7 +27,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(positionArms[7], 2121)
 
     def testCalcPress(self):
-        calcPosition = calcPosServo()
+        calcPosition = InterpolationMethods()
         positionPress = calcPosition.CalcPress(1, 1)
 
         print(positionPress)
@@ -36,14 +36,14 @@ class MyTestCase(unittest.TestCase):
         print(positionPress)
 
     def testCalcBody(self):
-        calcPosition = calcPosServo()
+        calcPosition = InterpolationMethods()
         positionBody = calcPosition.CalcBody(1)
 
         print(positionBody)
         self.assertEqual(positionBody, 3900)
 
     def testCalcLeg(self):
-        calcPosition = calcPosServo()
+        calcPosition = InterpolationMethods()
         positionLeg = calcPosition.CalcLeg(1, 1, 1, True)
 
         print(positionLeg)

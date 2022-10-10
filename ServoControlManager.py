@@ -1,4 +1,4 @@
-from InterpolationMethod import calcPosServo
+from InterpolationMethods import InterpolationMethods
 from SyncWriteServos import SyncWriteServos
 
 ServosID = [1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
@@ -42,28 +42,28 @@ HightRightLegPer = 0
 SwitchBothLeg = True
 
 def CalcHeadPos():
-    ReadPosArray = calcPosServo()
+    ReadPosArray = InterpolationMethods()
     HeadPos = ReadPosArray.CalcHead(GoalPosHeadPer, GoalPosNeckPer)
     return HeadPos
 
 def CalcArmPos():
-    ReadPosArray = calcPosServo()
+    ReadPosArray = InterpolationMethods()
     ArmPos = ReadPosArray.CalcArms(ArmShoulderAnglRightPer, ArmForearmAnglRightPer, ArmElbowTopAnglRightPer, ArmElbowBottAnglRightPer, ArmElbowAnglRightPer,
                  ArmShoulderAnglLeftPer, ArmForearmAnglLeftPer, ArmElbowTopAnglLeftPer, ArmElbowBottAnglLeftPer, ArmElbowAnglLeftPer, SwitchBothElbow)
     return ArmPos
 
 def CalcPressPos():
-    ReadPosArray = calcPosServo()
+    ReadPosArray = InterpolationMethods()
     PressPos = ReadPosArray.CalcPress(PressTopAnglPer, PressBottAnglPer)
     return PressPos
 
 def CalcBodyPos():
-    ReadPosArray = calcPosServo()
+    ReadPosArray = InterpolationMethods()
     BodyPos = ReadPosArray.CalcBody(BodyRotPer)
     return BodyPos
 
 def CalcLegPos():
-    ReadPosArray = calcPosServo()
+    ReadPosArray = InterpolationMethods()
     LegPos = ReadPosArray.CalcLeg(HightBothLegPer, HightLeftLegPer, HightRightLegPer, SwitchBothLeg)
     return LegPos
 
