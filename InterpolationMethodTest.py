@@ -2,7 +2,7 @@ import unittest
 from InterpolationMethods import InterpolationMethods
 
 
-class MyTestCase(unittest.TestCase):
+class InterpolationMethodTest(unittest.TestCase):
 
     def testCalcHead(self):
         calcPosition = InterpolationMethods()

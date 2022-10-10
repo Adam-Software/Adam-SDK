@@ -1,9 +1,9 @@
-from ReadHomPos import ReadHomPos
+from ReadHomeRange import ReadHomeRange
 
 
 class InterpolationMethods:
     def __init__(self):
-        self._ReadPosArray = ReadHomPos.ReadServRange()
+        self._ReadPosArray = ReadHomeRange.Read()
 
     def CalcHead(self, GoalPosHeadPer, GoalPosNeckPer):
 
