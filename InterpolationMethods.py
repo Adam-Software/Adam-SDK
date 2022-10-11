@@ -1,19 +1,20 @@
 from ReadHomeRange import ReadHomeRange
+from ParsingRangeArray import ParsingRangeArray
 
 
 class InterpolationMethods:
     def __init__(self):
         self._ReadPosArray = ReadHomeRange.Read()
+        self._positionRange = ParsingRangeArray()
 
     def CalcHead(self, GoalPosHeadPer, GoalPosNeckPer):
-
-        HeadRangeMin = self._ReadPosArray[0][0][0]
-        HeadRangeMax = self._ReadPosArray[0][1][0]
-        NeckRangeMin = self._ReadPosArray[0][2][0]
-        NeckRangeMax = self._ReadPosArray[0][3][0]
-
-        CalcGoalPosHead = self._CalcAngle(HeadRangeMax, HeadRangeMin, GoalPosHeadPer)
-        CalcGoalPosNeck = self._CalcAngle(NeckRangeMax, NeckRangeMin, GoalPosNeckPer)
+        headRange = self._positionRange.GetHeadRange
+        CalcGoalPosHead = self._CalcAngle(headRange.HeadRangeMax,
+                                          headRange.HeadRangeMin,
+                                          GoalPosHeadPer)
+        CalcGoalPosNeck = self._CalcAngle(headRange.NeckRangeMax,
+                                          headRange.HeadRangeMin,
+                                          GoalPosNeckPer)
 
         return CalcGoalPosHead, CalcGoalPosNeck
 
@@ -44,7 +45,8 @@ class InterpolationMethods:
             CalcGolPosShoulderRight = self._CalcAngle(ArmShoulderRightMax, ArmShoulderRightMin, ArmShoulderAnglRightPer)
             CalcGolPosForearmRight = self._CalcAngle(ArmForearmRightMax, ArmForearmRightMin, ArmForearmAnglRightPer)
             CalcGolPosElbowTopRight = self._CalcAngle(ArmElbowTopRightMax, ArmElbowTopRightMin, ArmElbowTopAnglRightPer)
-            CalcGolPosElbowBottRight = self._CalcAngle(ArmElbowBottRightMax, ArmElbowBottRightMin, ArmElbowBottAnglRightPer)
+            CalcGolPosElbowBottRight = self._CalcAngle(ArmElbowBottRightMax, ArmElbowBottRightMin,
+                                                       ArmElbowBottAnglRightPer)
 
             CalcGolPosShoulderLeft = self._CalcAngle(ArmShoulderLeftMax, ArmShoulderLeftMin, ArmShoulderAnglLeftPer)
             CalcGolPosForearmLeft = self._CalcAngle(ArmForearmLeftMax, ArmForearmLeftMin, ArmForearmAnglLeftPer)
@@ -65,23 +67,15 @@ class InterpolationMethods:
                 CalcGolPosShoulderLeft, CalcGolPosForearmLeft, CalcGolPosElbowTopLeft, CalcGolPosElbowBottLeft)
 
     def CalcPress(self, PressTopAnglPer, PressBottAnglPer):
-
-        PressTopAnglMin = self._ReadPosArray[3][0][0]
-        PressTopAnglMax = self._ReadPosArray[3][1][0]
-        PressBottAnglMin = self._ReadPosArray[3][2][0]
-        PressBottAnglMax = self._ReadPosArray[3][3][0]
-
-        CalcGoalPosPressTop = self._CalcAngle(PressTopAnglMax, PressTopAnglMin, PressTopAnglPer)
-        CalcGoalPosPressBott = self._CalcAngle(PressBottAnglMax, PressBottAnglMin, PressBottAnglPer)
+        pressRange = self._positionRange.GetPressRange
+        CalcGoalPosPressTop = self._CalcAngle(pressRange.PressTopAngleMax, pressRange.PressTopAngleMin, PressTopAnglPer)
+        CalcGoalPosPressBott = self._CalcAngle(pressRange.PressBottAngleMax, pressRange.PressBottAngleMin, PressBottAnglPer)
 
         return CalcGoalPosPressTop, CalcGoalPosPressBott
 
     def CalcBody(self, BodyRotPer):
-
-        BodyRotMin = self._ReadPosArray[4][0][0]
-        BodyRotMax = self._ReadPosArray[4][1][0]
-
-        CalcGoalPosBody = self._CalcAngle(BodyRotMax, BodyRotMin, BodyRotPer)
+        bodyRange = self._positionRange.GetBodyRange
+        CalcGoalPosBody = self._CalcAngle(bodyRange.BodyRotMax, bodyRange.BodyRotMin, BodyRotPer)
 
         return CalcGoalPosBody
 
