@@ -66,29 +66,38 @@ class InterpolationMethods:
 
         return CalcGoalPosBody
 
-    def CalcLeg(self, HighBothLegPer, HighLeftLegPer, HighRightLegPer, SwitchBothLeg):
-
+    def CalcLegRight(self, HighBothLegPer, HighRightLegPer, SwitchBothLeg):
         legRangeRight = self._positionRange.GetLegRightRange
-        legRangeLeft = self._positionRange.GetLegLeftRange
 
         if not SwitchBothLeg:
-            # right
             CalcGoalPosHipRight = _CalcAngle(legRangeRight.LegHipAngRightMax, legRangeRight.LegHipAngRightMin, HighRightLegPer)
             CalcGoalPosFootRight = _CalcAngle(legRangeRight.LegFootAngRightMax, legRangeRight.LegFootAngRightMin, HighRightLegPer)
             CalcGoalPosKneeRight = _CalcAngle(legRangeRight.LegKneeAngRightMax, legRangeRight.LegKneeAngRightMin, HighRightLegPer)
-            # left
-            CalcGoalPosHipLeft = _CalcAngle(legRangeLeft.LegHipAngLeftMax, legRangeLeft.LegHipAngLeftMin, HighLeftLegPer)
-            CalcGoalPosFootLeft = _CalcAngle(legRangeLeft.LegFootAngLeftMax, legRangeLeft.LegFootAngLeftMin, HighLeftLegPer)
-            CalcGoalPosKneeLeft = _CalcAngle(legRangeLeft.LegKneeAngLeftMax, legRangeLeft.LegKneeAngLeftMin, HighLeftLegPer)
-
         else:
-            # right
             CalcGoalPosHipRight = _CalcAngle(legRangeRight.LegHipAngRightMax, legRangeRight.LegHipAngRightMin, HighBothLegPer)
             CalcGoalPosFootRight = _CalcAngle(legRangeRight.LegFootAngRightMax, legRangeRight.LegFootAngRightMin, HighBothLegPer)
             CalcGoalPosKneeRight = _CalcAngle(legRangeRight.LegKneeAngRightMax, legRangeRight.LegKneeAngRightMin, HighBothLegPer)
-            # left
+
+        return CalcGoalPosKneeRight, CalcGoalPosFootRight, CalcGoalPosHipRight,
+
+    def CalcLeg(self, HighBothLegPer, HighLeftLegPer, HighRightLegPer, SwitchBothLeg):
+        right = self.CalcLegRight(HighBothLegPer, HighRightLegPer, SwitchBothLeg)
+        left = self.CalcLegLeft(HighBothLegPer, HighLeftLegPer, SwitchBothLeg)
+
+        return right.__add__(left)
+
+    def CalcLegLeft(self, HighBothLegPer, HighLeftLegPer, SwitchBothLeg):
+        legRangeLeft = self._positionRange.GetLegLeftRange
+
+        if not SwitchBothLeg:
+            CalcGoalPosHipLeft = _CalcAngle(legRangeLeft.LegHipAngLeftMax, legRangeLeft.LegHipAngLeftMin, HighLeftLegPer)
+            CalcGoalPosFootLeft = _CalcAngle(legRangeLeft.LegFootAngLeftMax, legRangeLeft.LegFootAngLeftMin, HighLeftLegPer)
+            CalcGoalPosKneeLeft = _CalcAngle(legRangeLeft.LegKneeAngLeftMax, legRangeLeft.LegKneeAngLeftMin, HighLeftLegPer)
+        else:
             CalcGoalPosHipLeft = _CalcAngle(legRangeLeft.LegHipAngLeftMax, legRangeLeft.LegHipAngLeftMin, HighBothLegPer)
             CalcGoalPosFootLeft = _CalcAngle(legRangeLeft.LegFootAngLeftMax, legRangeLeft.LegFootAngLeftMin, HighBothLegPer)
             CalcGoalPosKneeLeft = _CalcAngle(legRangeLeft.LegKneeAngLeftMax, legRangeLeft.LegKneeAngLeftMin, HighBothLegPer)
 
-        return CalcGoalPosKneeRight, CalcGoalPosFootRight, CalcGoalPosHipRight, CalcGoalPosKneeLeft, CalcGoalPosFootLeft, CalcGoalPosHipLeft
+        return CalcGoalPosKneeLeft, CalcGoalPosFootLeft, CalcGoalPosHipLeft
+
+
