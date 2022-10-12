@@ -19,66 +19,53 @@ class InterpolationMethods:
 
         return CalcGoalPosHead, CalcGoalPosNeck
 
-    def CalcArms(self, ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowTopAngleRightPer,
-                 ArmElbowBottAngleRightPer, ArmElbowAngleRightPer, ArmShoulderAngleLeftPer,
-                 ArmForearmAngleLeftPer, ArmElbowTopAngleLeftPer, ArmElbowBottAngleLeftPer,
-                 ArmElbowAngleLeftPer, SwitchBothElbow):
+    def CalcArmsRight(self, ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowTopAngleRightPer,
+                      ArmElbowBottAngleRightPer, ArmElbowAngleRightPer, SwitchBothElbow):
 
         armRangeRight = self._positionRange.GetArmRangeRight
+
+        if not SwitchBothElbow:
+            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax, armRangeRight.ArmShoulderRightMin, ArmShoulderAngleRightPer)
+            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax, armRangeRight.ArmForearmRightMin, ArmForearmAngleRightPer)
+            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax, armRangeRight.ArmElbowTopRightMin, ArmElbowTopAngleRightPer)
+            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax, armRangeRight.ArmElbowBottRightMin, ArmElbowBottAngleRightPer)
+        else:
+            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax, armRangeRight.ArmShoulderRightMin, ArmShoulderAngleRightPer)
+            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax, armRangeRight.ArmForearmRightMin, ArmForearmAngleRightPer)
+            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax, armRangeRight.ArmElbowTopRightMin, ArmElbowAngleRightPer)
+            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax, armRangeRight.ArmElbowBottRightMin, ArmElbowAngleRightPer)
+
+        return CalcGolPosShoulderRight, CalcGolPosForearmRight, CalcGolPosElbowTopRight, CalcGolPosElbowBottRight,
+
+    def CalcArmsLeft(self, ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer, ArmElbowTopAngleLeftPer,
+                     ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer, SwitchBothElbow):
+
         armRangeLeft = self._positionRange.GetArmRangeLeft
 
         if not SwitchBothElbow:
-            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax,
-                                                                   armRangeRight.ArmShoulderRightMin,
-                                                                   ArmShoulderAngleRightPer)
-            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax,
-                                                                  armRangeRight.ArmForearmRightMin,
-                                                                  ArmForearmAngleRightPer)
-            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax,
-                                                                   armRangeRight.ArmElbowTopRightMin,
-                                                                   ArmElbowTopAngleRightPer)
-            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax,
-                                                                    armRangeRight.ArmElbowBottRightMin,
-                                                                    ArmElbowBottAngleRightPer)
-
-            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax,
-                                                                  armRangeLeft.ArmShoulderLeftMin,
-                                                                  ArmShoulderAngleLeftPer)
-            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax,
-                                                                 armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
-            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax,
-                                                                  armRangeLeft.ArmElbowTopLeftMin,
-                                                                  ArmElbowTopAngleLeftPer)
-            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax,
-                                                                   armRangeLeft.ArmElbowBottLeftMin,
-                                                                   ArmElbowBottAngleLeftPer)
+            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax, armRangeLeft.ArmShoulderLeftMin, ArmShoulderAngleLeftPer)
+            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax, armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
+            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax, armRangeLeft.ArmElbowTopLeftMin, ArmElbowTopAngleLeftPer)
+            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax, armRangeLeft.ArmElbowBottLeftMin, ArmElbowBottAngleLeftPer)
         else:
-            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax,
-                                                                   armRangeRight.ArmShoulderRightMin,
-                                                                   ArmShoulderAngleRightPer)
-            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax,
-                                                                  armRangeRight.ArmForearmRightMin,
-                                                                  ArmForearmAngleRightPer)
-            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax,
-                                                                   armRangeRight.ArmElbowTopRightMin,
-                                                                   ArmElbowAngleRightPer)
-            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax,
-                                                                    armRangeRight.ArmElbowBottRightMin,
-                                                                    ArmElbowAngleRightPer)
+            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax, armRangeLeft.ArmShoulderLeftMin, ArmShoulderAngleLeftPer)
+            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax, armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
+            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax, armRangeLeft.ArmElbowTopLeftMin, ArmElbowAngleLeftPer)
+            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax, armRangeLeft.ArmElbowBottLeftMin, ArmElbowAngleLeftPer)
 
-            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax,
-                                                                  armRangeLeft.ArmShoulderLeftMin,
-                                                                  ArmShoulderAngleLeftPer)
-            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax,
-                                                                 armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
-            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax,
-                                                                  armRangeLeft.ArmElbowTopLeftMin, ArmElbowAngleLeftPer)
-            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax,
-                                                                   armRangeLeft.ArmElbowBottLeftMin,
-                                                                   ArmElbowAngleLeftPer)
+        return CalcGolPosShoulderLeft, CalcGolPosForearmLeft, CalcGolPosElbowTopLeft, CalcGolPosElbowBottLeft
 
-        return (CalcGolPosShoulderRight, CalcGolPosForearmRight, CalcGolPosElbowTopRight, CalcGolPosElbowBottRight,
-                CalcGolPosShoulderLeft, CalcGolPosForearmLeft, CalcGolPosElbowTopLeft, CalcGolPosElbowBottLeft)
+    def CalcArms(self,
+                 ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
+                 ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer, ArmElbowAngleRightPer,
+                 ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer,
+                 ArmElbowTopAngleLeftPer, ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer,
+                 SwitchBothElbow):
+
+        right = self.CalcArmsRight(ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer, ArmElbowAngleRightPer, SwitchBothElbow)
+        left = self.CalcArmsLeft(ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer, ArmElbowTopAngleLeftPer, ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer, SwitchBothElbow)
+
+        return right.__add__(left)
 
     def CalcPress(self, PressTopAnglePer, PressBottAnglePer):
         pressRange = self._positionRange.GetPressRange
