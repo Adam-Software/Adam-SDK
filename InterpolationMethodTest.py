@@ -21,6 +21,7 @@ class InterpolationMethodTest(unittest.TestCase):
         self.assertEqual(positionArms[1], 2617)
         self.assertEqual(positionArms[2], 1495)
         self.assertEqual(positionArms[3], 1570)
+
         self.assertEqual(positionArms[4], 8793)
         self.assertEqual(positionArms[5], 1511)
         self.assertEqual(positionArms[6], 2847)
@@ -44,7 +45,7 @@ class InterpolationMethodTest(unittest.TestCase):
 
     def testCalcLeg(self):
         calcPosition = InterpolationMethods()
-        positionLeg = calcPosition.CalcLeg(1, 1, 1, True)
+        positionLeg = calcPosition.CalcLeg(1, 1, 1, False)
 
         print(positionLeg)
 
