@@ -6,11 +6,17 @@ class InterpolationMethodTest(unittest.TestCase):
 
     def testCalcHead(self):
         calcPosition = InterpolationMethods()
-        positionHead = calcPosition.CalcHead(1, 1)
+        positionHead = calcPosition.CalcHead(1)
 
         print(positionHead)
-        self.assertEqual(positionHead[0], 1548)
-        self.assertEqual(positionHead[1], 2300)
+        self.assertEqual(positionHead, 1548)
+
+    def testCalcNeck(self):
+        calcPosition = InterpolationMethods()
+        positionNeck = calcPosition.CalcNeck(1)
+
+        print(positionNeck)
+        self.assertEqual(positionNeck, 2300)
 
     def testCalcArms(self):
         calcPosition = InterpolationMethods()

@@ -68,9 +68,9 @@ def CalcLegPos():
     return LegPos
 
 #Function run example
-#WritePos = SyncWriteServos()
-#GoalPos = CalcArmPos()
-#ServosID = ArmID
-#ServosSpeed = ArmSpeed
-#WritePos = WritePos.SyncWriteData(ServosID, ServosSpeed, GoalPos)
-#print(WritePos)
+WritePos = SyncWriteServos()
+GoalPos = CalcArmPos()
+ServosID = ArmID
+ServosSpeed = ArmSpeed
+WritePos = WritePos.SyncWriteData(ServosID, ServosSpeed, GoalPos)
+print(WritePos)

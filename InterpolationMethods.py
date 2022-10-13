@@ -13,22 +13,28 @@ class InterpolationMethods:
     #
     # Head calculation
     #
-
-    def CalcHead(self, GoalPosHeadPer, GoalPosNeckPer):
+    def CalcHead(self, GoalPosHeadPer):
         headRange = self._positionRange.GetHeadRange
         CalcGoalPosHead = InterpolationUtils.CalcAngle(headRange.HeadRangeMax,
                                                        headRange.HeadRangeMin,
                                                        GoalPosHeadPer)
+
+        return CalcGoalPosHead
+
+    #
+    # Head calculation
+    #
+    def CalcNeck(self, GoalPosNeckPer):
+        headRange = self._positionRange.GetHeadRange
         CalcGoalPosNeck = InterpolationUtils.CalcAngle(headRange.NeckRangeMax,
                                                        headRange.HeadRangeMin,
                                                        GoalPosNeckPer)
 
-        return CalcGoalPosHead, CalcGoalPosNeck
+        return CalcGoalPosNeck
 
     #
     # Arms calculation
     #
-
     def CalcArms(self,
                  ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
                  ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer, ArmElbowAngleRightPer,
