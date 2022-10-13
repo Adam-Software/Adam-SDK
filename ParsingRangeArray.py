@@ -1,11 +1,11 @@
-from ReadHomeRange import ReadHomeRange
+from JsonParser import JsonParser
 from collections import namedtuple
 
 
 class ParsingRangeArray:
 
     def __init__(self):
-        self._data = ReadHomeRange.Read()
+        self._data = JsonParser.ReadPositionRange()
         self._headRange = self._data['HeadRange']
         self._armRangeRight = self._data['ArmRangeRight']
         self._armRangeLeft = self._data['ArmRangeLeft']
