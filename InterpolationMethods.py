@@ -1,5 +1,6 @@
 import InterpolationUtils
 from InterpolationMethodsLegs import InterpolationMethodsLegs
+from InterpolationMethodsArms import InterpolationMethodsArms
 from ParsingRangeArray import ParsingRangeArray
 
 
@@ -7,6 +8,11 @@ class InterpolationMethods:
     def __init__(self):
         self._positionRange = ParsingRangeArray()
         self._interpolationMethodsLegs = InterpolationMethodsLegs(self._positionRange)
+        self._interpolationMethodsArms = InterpolationMethodsArms(self._positionRange)
+
+    #
+    # Head calculation
+    #
 
     def CalcHead(self, GoalPosHeadPer, GoalPosNeckPer):
         headRange = self._positionRange.GetHeadRange
@@ -19,41 +25,9 @@ class InterpolationMethods:
 
         return CalcGoalPosHead, CalcGoalPosNeck
 
-    def CalcArmsRight(self, ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowTopAngleRightPer,
-                      ArmElbowBottAngleRightPer, ArmElbowAngleRightPer, SwitchBothElbow):
-
-        armRangeRight = self._positionRange.GetArmRangeRight
-
-        if not SwitchBothElbow:
-            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax, armRangeRight.ArmShoulderRightMin, ArmShoulderAngleRightPer)
-            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax, armRangeRight.ArmForearmRightMin, ArmForearmAngleRightPer)
-            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax, armRangeRight.ArmElbowTopRightMin, ArmElbowTopAngleRightPer)
-            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax, armRangeRight.ArmElbowBottRightMin, ArmElbowBottAngleRightPer)
-        else:
-            CalcGolPosShoulderRight = InterpolationUtils.CalcAngle(armRangeRight.ArmShoulderRightMax, armRangeRight.ArmShoulderRightMin, ArmShoulderAngleRightPer)
-            CalcGolPosForearmRight = InterpolationUtils.CalcAngle(armRangeRight.ArmForearmRightMax, armRangeRight.ArmForearmRightMin, ArmForearmAngleRightPer)
-            CalcGolPosElbowTopRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowTopRightMax, armRangeRight.ArmElbowTopRightMin, ArmElbowAngleRightPer)
-            CalcGolPosElbowBottRight = InterpolationUtils.CalcAngle(armRangeRight.ArmElbowBottRightMax, armRangeRight.ArmElbowBottRightMin, ArmElbowAngleRightPer)
-
-        return CalcGolPosShoulderRight, CalcGolPosForearmRight, CalcGolPosElbowTopRight, CalcGolPosElbowBottRight,
-
-    def CalcArmsLeft(self, ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer, ArmElbowTopAngleLeftPer,
-                     ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer, SwitchBothElbow):
-
-        armRangeLeft = self._positionRange.GetArmRangeLeft
-
-        if not SwitchBothElbow:
-            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax, armRangeLeft.ArmShoulderLeftMin, ArmShoulderAngleLeftPer)
-            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax, armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
-            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax, armRangeLeft.ArmElbowTopLeftMin, ArmElbowTopAngleLeftPer)
-            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax, armRangeLeft.ArmElbowBottLeftMin, ArmElbowBottAngleLeftPer)
-        else:
-            CalcGolPosShoulderLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmShoulderLeftMax, armRangeLeft.ArmShoulderLeftMin, ArmShoulderAngleLeftPer)
-            CalcGolPosForearmLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmForearmLeftMax, armRangeLeft.ArmForearmLeftMin, ArmForearmAngleLeftPer)
-            CalcGolPosElbowTopLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowTopLeftMax, armRangeLeft.ArmElbowTopLeftMin, ArmElbowAngleLeftPer)
-            CalcGolPosElbowBottLeft = InterpolationUtils.CalcAngle(armRangeLeft.ArmElbowBottLeftMax, armRangeLeft.ArmElbowBottLeftMin, ArmElbowAngleLeftPer)
-
-        return CalcGolPosShoulderLeft, CalcGolPosForearmLeft, CalcGolPosElbowTopLeft, CalcGolPosElbowBottLeft
+    #
+    # Arms calculation
+    #
 
     def CalcArms(self,
                  ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
@@ -62,11 +36,48 @@ class InterpolationMethods:
                  ArmElbowTopAngleLeftPer, ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer,
                  SwitchBothElbow):
 
-        right = self.CalcArmsRight(ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer, ArmElbowAngleRightPer, SwitchBothElbow)
-        left = self.CalcArmsLeft(ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer, ArmElbowTopAngleLeftPer, ArmElbowBottAngleLeftPer, ArmElbowAngleLeftPer, SwitchBothElbow)
+        if SwitchBothElbow:
+            right = self._interpolationMethodsArms.CalcArmRightElbow(ArmShoulderAngleRightPer,
+                                                                     ArmForearmAngleRightPer,
+                                                                     ArmElbowAngleRightPer)
+            left = self._interpolationMethodsArms.CalcArmLeftElbow(ArmShoulderAngleLeftPer,
+                                                                   ArmForearmAngleLeftPer,
+                                                                   ArmElbowAngleLeftPer)
+
+            return right.__add__(left)
+
+        right = self._interpolationMethodsArms.CalcArmRight(ArmShoulderAngleRightPer,
+                                                            ArmForearmAngleRightPer,
+                                                            ArmElbowTopAngleRightPer,
+                                                            ArmElbowBottAngleRightPer)
+        left = self._interpolationMethodsArms.CalcArmLeft(ArmShoulderAngleLeftPer,
+                                                          ArmForearmAngleLeftPer,
+                                                          ArmElbowTopAngleLeftPer,
+                                                          ArmElbowBottAngleLeftPer)
 
         return right.__add__(left)
 
+    def CalcArmRight(self, ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
+                     ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer):
+        return self._interpolationMethodsArms.CalcArmRight(ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
+                                                           ArmElbowTopAngleRightPer, ArmElbowBottAngleRightPer)
+
+    def CalcArmRightElbow(self, ArmShoulderAngleRightPer, ArmForearmAngleRightPer, ArmElbowAngleRightPer):
+        return self._interpolationMethodsArms.CalcArmRightElbow(ArmShoulderAngleRightPer, ArmForearmAngleRightPer,
+                                                                ArmElbowAngleRightPer)
+
+    def CalcArmLeft(self, ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer,
+                    ArmElbowAngleLeftPer, ArmElbowBottAngleRightPer):
+        return self._interpolationMethodsArms.CalcArmLeft(ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer,
+                                                          ArmElbowAngleLeftPer, ArmElbowBottAngleRightPer)
+
+    def CalcArmLeftElbow(self, ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer, ArmElbowAngleLeftPer):
+        return self._interpolationMethodsArms.CalcArmLeftElbow(ArmShoulderAngleLeftPer, ArmForearmAngleLeftPer,
+                                                               ArmElbowAngleLeftPer)
+
+    #
+    # Press calculation
+    #
     def CalcPress(self, PressTopAnglePer, PressBottAnglePer):
         pressRange = self._positionRange.GetPressRange
         CalcGoalPosPressTop = InterpolationUtils.CalcAngle(pressRange.PressTopAngleMax,
@@ -78,6 +89,9 @@ class InterpolationMethods:
 
         return CalcGoalPosPressTop, CalcGoalPosPressBott
 
+    #
+    # Body calculation
+    #
     def CalcBody(self, BodyRotPer):
         bodyRange = self._positionRange.GetBodyRange
         CalcGoalPosBody = InterpolationUtils.CalcAngle(bodyRange.BodyRotMax,
@@ -86,6 +100,9 @@ class InterpolationMethods:
 
         return CalcGoalPosBody
 
+    #
+    # Leg calculation
+    #
     def CalcLeg(self, HighBothLegPer, HighLeftLegPer, HighRightLegPer, SwitchBothLeg):
 
         if SwitchBothLeg:

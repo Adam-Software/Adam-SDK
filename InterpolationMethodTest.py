@@ -14,7 +14,7 @@ class InterpolationMethodTest(unittest.TestCase):
 
     def testCalcArms(self):
         calcPosition = InterpolationMethods()
-        positionArms = calcPosition.CalcArms(1, 1, 1, 1, 1, 1, 1, 1, 1,  1, True)
+        positionArms = calcPosition.CalcArms(1, 1, 1, 1, 1, 1, 1, 1, 1,  1, False)
 
         print(positionArms)
         self.assertEqual(positionArms[0], 8793)
@@ -26,6 +26,46 @@ class InterpolationMethodTest(unittest.TestCase):
         self.assertEqual(positionArms[5], 1511)
         self.assertEqual(positionArms[6], 2847)
         self.assertEqual(positionArms[7], 2121)
+
+    def testCalcArmRight(self):
+        calcPosition = InterpolationMethods()
+        positionArm = calcPosition.CalcArmRight(1, 1, 1, 1)
+
+        print(positionArm)
+        self.assertEqual(positionArm[0], 8793)
+        self.assertEqual(positionArm[1], 2617)
+        self.assertEqual(positionArm[2], 1495)
+        self.assertEqual(positionArm[3], 1570)
+
+    def testCalcArmRightElbow(self):
+        calcPosition = InterpolationMethods()
+        positionArm = calcPosition.CalcArmRightElbow(1, 1, 1)
+
+        print(positionArm)
+        self.assertEqual(positionArm[0], 8793)
+        self.assertEqual(positionArm[1], 2617)
+        self.assertEqual(positionArm[2], 1495)
+        self.assertEqual(positionArm[3], 1570)
+
+    def testCalcArmLeft(self):
+        calcPosition = InterpolationMethods()
+        positionArm = calcPosition.CalcArmLeft(1, 1, 1, 1)
+
+        print(positionArm)
+        self.assertEqual(positionArm[0], 8793)
+        self.assertEqual(positionArm[1], 1511)
+        self.assertEqual(positionArm[2], 2847)
+        self.assertEqual(positionArm[3], 2121)
+
+    def testCalcArmLeftElbow(self):
+        calcPosition = InterpolationMethods()
+        positionArm = calcPosition.CalcArmLeftElbow(1, 1, 1)
+
+        print(positionArm)
+        self.assertEqual(positionArm[0], 8793)
+        self.assertEqual(positionArm[1], 1511)
+        self.assertEqual(positionArm[2], 2847)
+        self.assertEqual(positionArm[3], 2121)
 
     def testCalcPress(self):
         calcPosition = InterpolationMethods()
