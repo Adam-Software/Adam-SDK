@@ -1,6 +1,8 @@
 from Motor import Motor
 from typing import Dict, List
 
+from SerializableCommands import SerializableCommands
+
 
 class AdamController:
     motors: List[Motor]
@@ -15,3 +17,7 @@ class AdamController:
     def SetMotorTargetPosition(self, motorName, targetPosition):
         self._name2Motor[motorName].target_position = targetPosition
         self._name2Motor[motorName].Changed()
+    
+    def HandleCommand(self, commands: List[SerializableCommands]):
+        for command in commands.motors:
+            self.SetMotorTargetPosition(command.name,command.goal_position)
