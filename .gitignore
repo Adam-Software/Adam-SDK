@@ -5,3 +5,4 @@
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/Servo-Control-Manager.iml
 /.idea/vcs.xml
+*.pyc
