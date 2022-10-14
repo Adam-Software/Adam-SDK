@@ -18,7 +18,7 @@ class TestProject(unittest.TestCase):
 
         motors = []
         for element in config:
-            motors.append(Motor(**element))
+            motors.append(Motor(name=element['name'],joint=Joint(element['joint']['lover_limit'],element['joint']['upper_limit'],element['joint']['speed'])))
 
         adamController_2 = AdamController(motors=motors)
         adamController_2.SetMotorTargetPosition("Head", 20)

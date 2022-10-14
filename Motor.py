@@ -14,7 +14,7 @@ class Motor:
     def __init__(self, name: str, joint: Joint) -> None:
         self.name = name
         self.joint = joint
-        #self.joint.servo_Id = MotorEnum[name].value
+        self.joint.servo_Id = MotorEnum[name].value
         self.target_position = 0
     
     def Changed(self) -> None:
