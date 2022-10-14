@@ -4,7 +4,8 @@ from SyncWriteServos import SyncWriteServos
 ServosID = [1, 2, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
 ServosSpeed = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 600, 600, 2000, 2000, 1200, 1200]
 
-HeadID = [1, 2]
+HeadID = 1
+NeckID = 2
 HeadSpeed = [2000, 2000]
 ArmID = [11, 9, 7, 5, 12, 10, 8, 6]
 ArmSpeed = [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000]
@@ -43,7 +44,7 @@ SwitchBothLeg = True
 
 def CalcHeadPos():
     ReadPosArray = InterpolationMethods()
-    HeadPos = ReadPosArray.CalcHead(GoalPosHeadPer, GoalPosNeckPer)
+    HeadPos = ReadPosArray.CalcHead(GoalPosHeadPer)
     return HeadPos
 
 def CalcArmPos():
@@ -70,7 +71,7 @@ def CalcLegPos():
 #Function run example
 WritePos = SyncWriteServos()
 GoalPos = CalcArmPos()
-ServosID = ArmID
-ServosSpeed = ArmSpeed
+#ServosID = ArmID
+#ServosSpeed = ArmSpeed
 WritePos = WritePos.SyncWriteData(ServosID, ServosSpeed, GoalPos)
 print(WritePos)

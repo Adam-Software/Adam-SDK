@@ -3,7 +3,11 @@
     [
       {
         "name": "Head",
-        "goal_position": -0.0019112753216177226
+        "goal_position": 1
+      },
+      {
+        "name": "Neck",
+        "goal_position": 1
       }
     ]
 }
