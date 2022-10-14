@@ -1,17 +1,21 @@
 [
   {
     "name": "Head",
+    "id": 1,
     "joint": {
       "lover_limit": 2000,
       "upper_limit": 3000,
-      "speed": 100}
+      "speed": 100,
+      "id": 2
+    }
   },
   {
     "name": "Neck",
     "joint": {
         "lover_limit": 1000,
         "upper_limit": 2000,
-        "speed": 20
+        "speed": 20,
+        "id": 2
     }
   }
 ]

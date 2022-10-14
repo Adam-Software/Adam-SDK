@@ -1,18 +1,15 @@
-from cmath import nan
-from queue import Empty
-
-
 class Joint:
     lover_limit: int
     upper_limit: int
     speed: int
-    servo_Id: int
+    servo_Id:int
+    id: int
 
-    def __init__(self, lover_limit: int, upper_limit: int, speed: int) -> None:
+    def __init__(self, lover_limit: int, upper_limit: int, speed: int, id: int) -> None:
         self.lover_limit = lover_limit
         self.upper_limit = upper_limit
         self.speed = speed
-        self.servo_Id = 0
+        self.id = id
 
     def RotateTo(self,newTargetPosition:float) -> None:
         print(((self.upper_limit - self.lover_limit) * (newTargetPosition/100)) + self.lover_limit)

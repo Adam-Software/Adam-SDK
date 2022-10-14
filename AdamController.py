@@ -4,7 +4,7 @@ from typing import Dict, List
 
 class AdamController:
     motors: List[Motor]
-    _name2Motor: Dict[str,Motor]
+    _name2Motor: Dict[str, Motor]
 
     def __init__(self, motors: List[Motor]) -> None:
         self.motors = motors
