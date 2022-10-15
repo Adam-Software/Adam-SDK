@@ -9,15 +9,17 @@ from Motor import Motor
 from MotorCommand import MotorCommand
 from SerializableCommands import SerializableCommands
 
+
 class MotorEnum(Enum):
     Head = 7
     Neck = 2
 
+
 class TestProject(unittest.TestCase):
     def test_something(self):
-        #Прямое взяимодействие с контроллером
-        #self.AdamController()
-        #Инцилизация контроллера через Json взяимодействие с контроллером
+        # Прямое взяимодействие с контроллером
+        self.AdamController()
+        # Инцилизация контроллера через Json взяимодействие с контроллером
         self.AdamControllerJson()
 
     def AdamController(self):
@@ -25,10 +27,11 @@ class TestProject(unittest.TestCase):
             motors=[Motor(name="Head", joint=Joint(2000, 3000, 100, 1)),
                     Motor(name="Neck", joint=Joint(1000, 2000, 20, 2))])
 
-        self.TestSetMotorTargetPosition(adamController) 
+        self.TestSetMotorTargetPosition(adamController)
 
         adamController.SetMotorTargetPosition("Head", 50)
-        adamController.HandleCommand(commands=SerializableCommands([MotorCommand(MotorEnum.Head.name,100)]))
+        adamController.HandleCommand(commands=SerializableCommands(
+            [MotorCommand(MotorEnum.Head.name, 100),MotorCommand(MotorEnum.Neck.name, 50)]))
 
     def AdamControllerJson(self):
 
@@ -53,10 +56,8 @@ class TestProject(unittest.TestCase):
 
         adamController.HandleCommand(SerializableCommands(commands))
 
-    def TestSetMotorTargetPosition(self,adamController):
-        adamController.SetMotorTargetPosition("Head", 50)
-
-
+    def TestSetMotorTargetPosition(self, adamController):
+        adamController.SetMotorTargetPosition(MotorEnum.Head.name, 50)
 
 if __name__ == '__main__':
     unittest.main()
