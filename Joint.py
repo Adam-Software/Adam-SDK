@@ -15,15 +15,17 @@ class Joint:
         self.speed = speed
         self.id = id
         self.__targetPosition = 0
+        self._servoConnection = ServoConnection()
 
     def RotateTo(self, newTargetPosition: float) -> None:
         self.__targetPosition = newTargetPosition
         print(((self.upper_limit - self.lover_limit) *
               (self.__targetPosition/100)) + self.lover_limit)
 
+        goal_position = (((self.upper_limit - self.lover_limit) * (self.__targetPosition/100)) + self.lover_limit)
+
         #__packetHandler.write2ByteTxRx(PortHandler('/dev/ttyUSB0'), servoId, ADDR_STS_GOAL_SPEED,SCS_MOVING_SPEED)
-        portHandler = ServoConnection.getPortHandler()
-        ServoConnection.SyncWriteData(id, )
+        self._servoConnection.SyncWriteData(self.id, self.speed, goal_position)
 
     def GetPresentPosition(self):
         return self.__targetPosition  # не затейлево спросить какой параметр у сервы
