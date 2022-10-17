@@ -1,18 +1,13 @@
-from enum import Enum
-from imaplib import Commands
 import unittest
 
 from AdamController import AdamController
-from Joint import Joint
+from Models.Joint import Joint
+from JointController import JointController
 from JsonParser import JsonParser
-from Motor import Motor
-from MotorCommand import MotorCommand
-from SerializableCommands import SerializableCommands
-
-
-class MotorEnum(Enum):
-    Head = 7
-    Neck = 2
+from Models.Motor import Motor
+from Models.MotorCommand import MotorCommand
+from Models.MotorEnum import MotorEnum
+from Models.SerializableCommands import SerializableCommands
 
 
 class TestProject(unittest.TestCase):
@@ -24,14 +19,11 @@ class TestProject(unittest.TestCase):
 
     def AdamController(self):
         adamController = AdamController(
-            motors=[Motor(name="Head", joint=Joint(2000, 3000, 100, 1)),
-                    Motor(name="Neck", joint=Joint(1000, 2000, 20, 2))])
+            motors=[Motor(name="Head", JointController=JointController(joint=Joint(2000, 3000, 100, 1))),
+                    Motor(name="Neck", JointController=JointController(joint=Joint(1000, 2000, 20, 2)))])
 
-        self.TestSetMotorTargetPosition(adamController)
-
-        adamController.SetMotorTargetPosition("Head", 50)
         adamController.HandleCommand(commands=SerializableCommands(
-            [MotorCommand(MotorEnum.Head.name, 100),MotorCommand(MotorEnum.Neck.name, 50)]))
+            [MotorCommand(MotorEnum.Head.name, 100), MotorCommand(MotorEnum.Neck.name, 50)]))
 
     def AdamControllerJson(self):
 
@@ -39,12 +31,11 @@ class TestProject(unittest.TestCase):
         motors = []
         for element in config:
             motors.append(Motor(name=element['name'],
-                                joint=Joint(element['joint']['lover_limit'],
-                                            element['joint']['upper_limit'],
-                                            element['joint']['speed'],
-                                            element['joint']['id'])))
+                                JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                                                                            element['joint']['upper_limit'],
+                                                                            element['joint']['speed'],
+                                                                            element['joint']['id']))))
         adamController = AdamController(motors)
-        self.TestSetMotorTargetPosition(adamController)
 
         self.TestJsonCommand(adamController)
 
@@ -56,8 +47,6 @@ class TestProject(unittest.TestCase):
 
         adamController.HandleCommand(SerializableCommands(commands))
 
-    def TestSetMotorTargetPosition(self, adamController):
-        adamController.SetMotorTargetPosition(MotorEnum.Head.name, 50)
 
 if __name__ == '__main__':
     unittest.main()

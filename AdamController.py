@@ -1,8 +1,7 @@
-from Motor import Motor
+from Models.Motor import Motor
 from typing import Dict, List
-
-from SerializableCommands import SerializableCommands
-
+from JointController import JointController
+from Models.SerializableCommands import SerializableCommands
 
 class AdamController:
     motors: List[Motor]
@@ -14,16 +13,17 @@ class AdamController:
         for motor in motors:
             self.__name2Motor[motor.name] = motor
 
-    def SetMotorTargetPosition(self, motorName, targetPosition):
+    def __SetMotorTargetPosition(self, motorName, targetPosition):
         self.__name2Motor[motorName].target_position = targetPosition
-        self.__Update()
 
     def __Update(self):
+        joint: JointController
         for motor in self.__name2Motor.values():
-            joint = motor.joint
+            joint = motor.JointController
             joint.RotateTo(motor.target_position)
             motor.present_position = joint.GetPresentPosition()
 
-    def HandleCommand(self, commands: List[SerializableCommands]):
+    def HandleCommand(self, commands: SerializableCommands):
         for command in commands.motors:
-            self.SetMotorTargetPosition(command.name, command.goal_position)
+            self.__SetMotorTargetPosition(command.name, command.goal_position)
+        self.__Update()
