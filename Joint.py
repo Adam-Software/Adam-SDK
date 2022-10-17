@@ -1,3 +1,6 @@
+from ServoConnection import ServoConnection
+
+
 class Joint:
     lover_limit: int
     upper_limit: int
@@ -17,7 +20,10 @@ class Joint:
         self.__targetPosition = newTargetPosition
         print(((self.upper_limit - self.lover_limit) *
               (self.__targetPosition/100)) + self.lover_limit)
+
         #__packetHandler.write2ByteTxRx(PortHandler('/dev/ttyUSB0'), servoId, ADDR_STS_GOAL_SPEED,SCS_MOVING_SPEED)
+        portHandler = ServoConnection.getPortHandler()
+        ServoConnection.SyncWriteData(id, )
 
     def GetPresentPosition(self):
         return self.__targetPosition  # не затейлево спросить какой параметр у сервы
