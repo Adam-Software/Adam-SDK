@@ -3,11 +3,11 @@
     [
       {
         "name": "Head",
-        "goal_position": 1
+        "goal_position": 10
       },
       {
         "name": "Neck",
-        "goal_position": 1
+        "goal_position": 40
       }
     ]
 }
