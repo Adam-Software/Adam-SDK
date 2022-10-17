@@ -25,7 +25,7 @@ class Joint:
         goal_position = (((self.upper_limit - self.lover_limit) * (self.__targetPosition/100)) + self.lover_limit)
 
         #__packetHandler.write2ByteTxRx(PortHandler('/dev/ttyUSB0'), servoId, ADDR_STS_GOAL_SPEED,SCS_MOVING_SPEED)
-        self._servoConnection.SyncWriteData(self.id, self.speed, goal_position)
+        self._servoConnection.SyncWriteServo(self.id, self.speed, goal_position)
 
     def GetPresentPosition(self):
         return self.__targetPosition  # не затейлево спросить какой параметр у сервы
