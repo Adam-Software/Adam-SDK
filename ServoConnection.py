@@ -14,7 +14,7 @@ class ServoConnection:
     def SyncWriteServos(self,
                         servosIds: [int],
                         servosSpeed: [int],
-                        goalsPos: [float]):
+                        goalsPos: [int]):
         scs_error = None
         scs_add_param_result = None
 
@@ -43,7 +43,7 @@ class ServoConnection:
     def SyncWriteServo(self,
                        servoId: int,
                        servoSpeed: int,
-                       goalPos: float):
+                       goalPos: int):
 
         scs_comm_result, scs_error = self.packetHandler.write2ByteTxRx(self.portHandler, servoId,
                                                                        self.ADDR_STS_GOAL_SPEED,

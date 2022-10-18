@@ -19,10 +19,9 @@ class Joint:
 
     def RotateTo(self, newTargetPosition: float) -> None:
         self.__targetPosition = newTargetPosition
-        print(((self.upper_limit - self.lover_limit) *
-              (self.__targetPosition/100)) + self.lover_limit)
+        print(((self.upper_limit - self.lover_limit) * (self.__targetPosition/100)) + self.lover_limit)
 
-        goal_position = (((self.upper_limit - self.lover_limit) * (self.__targetPosition/100)) + self.lover_limit)
+        goal_position = int((((self.upper_limit - self.lover_limit) * (self.__targetPosition/100)) + self.lover_limit))
 
         #__packetHandler.write2ByteTxRx(PortHandler('/dev/ttyUSB0'), servoId, ADDR_STS_GOAL_SPEED,SCS_MOVING_SPEED)
         self._servoConnection.SyncWriteServo(self.id, self.speed, goal_position)
