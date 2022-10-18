@@ -37,4 +37,5 @@ def TestJsonCommand(adamController):
 
     adamController.HandleCommand(SerializableCommands(commands))
 
+
 AdamControllerJson()
