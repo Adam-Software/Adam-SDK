@@ -8,8 +8,8 @@ class ServoConnection:
     ADDR_STS_GOAL_POSITION = 42
     ADDR_STS_GOAL_SPEED = 46
 
-    portHandler = Connection().getPacketHandler()
-    packetHandler = Connection().getPortHandler()
+    portHandler = Connection().getPortHandler()
+    packetHandler = Connection().getPacketHandler()
 
     groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
 

@@ -18,10 +18,10 @@ class JointController:
     def RotateTo(self, newTargetPosition: float) -> None:
         self.__targetPosition = newTargetPosition
 
-        _goalPosition = ((self.__joint.upper_limit - self.__joint.lover_limit) *
-                         (self.__targetPosition/100)) + self.__joint.lover_limit
+        _goalPosition = int(((self.__joint.upper_limit - self.__joint.lover_limit) *
+                         (self.__targetPosition/100)) + self.__joint.lover_limit)
 
-        self._servoConnection.SyncWriteServo(self.__joint.id, self.__joint.speed, self._goalPosition)
+        self._servoConnection.SyncWriteServo(self.__joint.id, self.__joint.speed, _goalPosition)
 
 
 
