@@ -1,3 +1,5 @@
+from distutils.cmd import Command
+from typing import List
 from servo_serial.connection import Connection
 from scservo_sdk import *
 
@@ -6,15 +8,16 @@ class ServoConnection:
     ADDR_STS_GOAL_POSITION = 42
     ADDR_STS_GOAL_SPEED = 46
 
-    portHandler = Connection().getPortHandler()
-    packetHandler = Connection().getPacketHandler()
+    portHandler = Connection().getPacketHandler()
+    packetHandler = Connection().getPortHandler()
 
     groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
 
     def SyncWriteServos(self,
-                        servosIds: [int],
-                        servosSpeed: [int],
-                        goalsPos: [int]):
+                        servosIds: List[int],
+                        servosSpeed:  List[int],
+                        goalsPos:  List[float]):
+        
         scs_error = None
         scs_add_param_result = None
 
@@ -43,7 +46,7 @@ class ServoConnection:
     def SyncWriteServo(self,
                        servoId: int,
                        servoSpeed: int,
-                       goalPos: int):
+                       goalPos: float):
 
         scs_comm_result, scs_error = self.packetHandler.write2ByteTxRx(self.portHandler, servoId,
                                                                        self.ADDR_STS_GOAL_SPEED,

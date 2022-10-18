@@ -1,16 +1,12 @@
 from enum import Enum
 
 from AdamController import AdamController
-from Joint import Joint
+from JointController import JointController
 from JsonParser import JsonParser
-from Motor import Motor
-from MotorCommand import MotorCommand
-from SerializableCommands import SerializableCommands
-
-
-class MotorEnum(Enum):
-    Head = 13
-    Neck = 2
+from Models.Joint import Joint
+from Models.Motor import Motor
+from Models.MotorCommand import MotorCommand
+from Models.SerializableCommands import SerializableCommands
 
 
 def AdamControllerJson():
@@ -18,13 +14,11 @@ def AdamControllerJson():
     motors = []
     for element in config:
         motors.append(Motor(name=element['name'],
-                            joint=Joint(element['joint']['lover_limit'],
-                                        element['joint']['upper_limit'],
-                                        element['joint']['speed'],
-                                        element['joint']['id'])))
+                            JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                                                                        element['joint']['upper_limit'],
+                                                                        element['joint']['speed'],
+                                                                        element['joint']['id']))))
     adamController = AdamController(motors)
-
-    adamController.SetMotorTargetPosition(MotorEnum.Head.name, 50)
 
     TestJsonCommand(adamController)
 
