@@ -30,7 +30,6 @@ def TestJsonCommand(adamController):
         commands.append(MotorCommand(**element))
 
     adamController.HandleCommand(SerializableCommands(commands))
-    print(adamController)
 
 
 AdamControllerJson()
