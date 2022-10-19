@@ -6,7 +6,7 @@ from scservo_sdk import *
 
 class ServoConnection:
 
-    __doubleBuffer = List[List[int]]
+    __doubleBuffer = List[List[int, int, float]]
 
     def __init__(self):
         self.__doubleBuffer = []
@@ -20,13 +20,13 @@ class ServoConnection:
     groupSyncWrite = GroupSyncWrite(
         portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
 
-    def AppendCommandBuffer(self, command: List[List[int]]):
+    def AppendCommandBuffer(self, command: [int, int, float]):
         self.__doubleBuffer.append(command)
 
     def InsertCommandServo(self):
         self.SyncWriteServos(self.__doubleBuffer)
 
-    def SyncWriteServos(self, doubleBuffer: List[List[int]]):
+    def SyncWriteServos(self, doubleBuffer: List[List[int, int, float]]):
 
         scs_error = None
         scs_comm_result = None
@@ -37,10 +37,9 @@ class ServoConnection:
             scs_comm_result, scs_error = self.packetHandler.write2ByteTxRx(self.portHandler, servoId,
                                                                            self.ADDR_STS_GOAL_SPEED,
                                                                            servoSpeed)
-            param_goal_position = [SCS_LOBYTE(
-                int(goalPos)), SCS_HIBYTE(int(goalPos))]
-            scs_add_param_result = self.groupSyncWrite.addParam(
-                servoId, param_goal_position)
+            param_goal_position = [SCS_LOBYTE(int(goalPos)), SCS_HIBYTE(int(goalPos))]
+
+            scs_add_param_result = self.groupSyncWrite.addParam(servoId, param_goal_position)
 
         scs_comm_result = self.groupSyncWrite.txPacket()
 

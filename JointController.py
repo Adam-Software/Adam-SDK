@@ -16,12 +16,11 @@ class JointController:
         self._servoConnection = Any
 
     def RotateTo(self, newTargetPosition: float) -> None:
-        if(newTargetPosition != self.__targetPosition):
+        if newTargetPosition != self.__targetPosition:
             self.__targetPosition = newTargetPosition
             _goalPosition = ((self.__joint.upper_limit - self.__joint.lover_limit) *
                              (self.__targetPosition/100)) + self.__joint.lover_limit
-            self._servoConnection.AppendCommandBuffer([
-                self.__joint.id, self.__joint.speed, _goalPosition])
+            self._servoConnection.AppendCommandBuffer([self.__joint.id, self.__joint.speed, _goalPosition])
 
     def SetSpeed(self, newSpeed: int):
         self.__joint.speed = newSpeed
