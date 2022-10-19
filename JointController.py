@@ -20,12 +20,14 @@ class JointController:
             self.__targetPosition = newTargetPosition
             _goalPosition = int(((self.__joint.upper_limit - self.__joint.lover_limit) *
                                  (self.__targetPosition/100)) + self.__joint.lover_limit)
-            self._servoConnection.SyncWriteServo(
-                self.__joint.id, self.__joint.speed, _goalPosition)
+            self._servoConnection.AppendCommandBuffer([
+                self.__joint.id, self.__joint.speed, _goalPosition])
 
     def SetSpeed(self, newSpeed: int):
         self.__joint.speed = newSpeed
+
     def SetServoConnection(self, servoConnection: ServoConnection):
-        self._servoConnection = newSpeed
+        self._servoConnection = servoConnection
+
     def GetPresentPosition(self):
         return self.__targetPosition
