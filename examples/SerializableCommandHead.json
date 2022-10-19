@@ -3,7 +3,8 @@
   [
     {
       "name": "Head",
-      "goal_position": 50
+      "goal_position": 50,
+      "speed": 1500
     },
     {
       "name": "Neck",
