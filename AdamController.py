@@ -5,7 +5,16 @@ from Models.SerializableCommands import SerializableCommands
 from ServoConnection import ServoConnection
 
 
-class AdamController:
+class MetaSingleton(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(MetaSingleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+class AdamController(metaclass=MetaSingleton):
     motors: List[Motor]
     __name2Motor: Dict[str, Motor]
     __servoConnection = ServoConnection
@@ -14,6 +23,7 @@ class AdamController:
         self.motors = motors
         self.__name2Motor = {}
         self.__servoConnection = ServoConnection()
+
         for motor in motors:
             motor.JointController.SetServoConnection(self.__servoConnection)
             self.__name2Motor[motor.name] = motor
@@ -21,7 +31,7 @@ class AdamController:
     def __SetMotorTargetPosition(self, motorName, targetPosition, speed):
         self.__name2Motor[motorName].target_position = targetPosition
         joint: JointController
-        if (speed != 0):
+        if speed != 0:
             joint = self.__name2Motor[motorName].JointController
             joint.SetSpeed(speed)
 
