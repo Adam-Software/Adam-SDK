@@ -6,7 +6,7 @@ from scservo_sdk import *
 
 class ServoConnection:
 
-    __doubleBuffer = List[List[int, int, float]]
+    __doubleBuffer = List[List[int]]
 
     def __init__(self):
         self.__doubleBuffer = []
@@ -26,7 +26,7 @@ class ServoConnection:
     def InsertCommandServo(self):
         self.SyncWriteServos(self.__doubleBuffer)
 
-    def SyncWriteServos(self, doubleBuffer: List[List[int, int, float]]):
+    def SyncWriteServos(self, doubleBuffer: List[List[int]]):
 
         scs_error = None
         scs_comm_result = None
