@@ -6,7 +6,7 @@ class JsonParser:
 
     @staticmethod
     def ReadConfig():
-        f = open('examples\position_range.json')
+        f = open('examples/position_range.json')
         data = json.load(f)
         f.close()
 
@@ -14,7 +14,7 @@ class JsonParser:
 
     @staticmethod
     def ReadCommand():
-        f = open('examples\SerializableCommandHead.json')
+        f = open('examples/SerializableCommandHead.json')
         data = json.load(f)
         f.close()
 

@@ -1,3 +1,4 @@
+from JsonParser import JsonParser
 from Models.Motor import Motor
 from typing import Dict, List
 from JointController import JointController
@@ -19,12 +20,12 @@ class AdamController(metaclass=MetaSingleton):
     __name2Motor: Dict[str, Motor]
     __servoConnection = ServoConnection
 
-    def __init__(self, motors: List[Motor]) -> None:
-        self.motors = motors
+    def __init__(self) -> None:
+        self.motors = JsonParser.ReadConfig()
         self.__name2Motor = {}
         self.__servoConnection = ServoConnection()
 
-        for motor in motors:
+        for motor in self.motors:
             motor.JointController.SetServoConnection(self.__servoConnection)
             self.__name2Motor[motor.name] = motor
 

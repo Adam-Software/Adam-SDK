@@ -34,8 +34,8 @@ if __name__ == '__main__':
 
     #Базовые значения
     adamController.HandleCommand(commands=SerializableCommands(
-        [MotorCommand('Head', 50),
-         MotorCommand('Neck', 50),
+        [MotorCommand('Head', 100),
+         MotorCommand('Neck', 100),
          MotorCommand('Right_UpperArm', 10),
          MotorCommand('Left_UpperArm', 10),
          MotorCommand('Chest', 50)]))
@@ -43,9 +43,9 @@ if __name__ == '__main__':
     time.sleep(5)
 
     adamController2 = AdamController()
-    adamController2.HandleCommand(commands=HandCalculate("Left", 0, 15, 0, 0))
+    adamController2.HandleCommand(commands=HandCalculate("Left", 0, 30, 0, 0))
 
     time.sleep(5)
 
     adamController3 = AdamController()
-    adamController3.HandleCommand(commands=HandCalculate("Right", 0, 15, 0, 0))
+    adamController3.HandleCommand(commands=HandCalculate("Right", 0, 30, 0, 0))
