@@ -1,11 +1,14 @@
-
 import json
+
+from JointController import JointController
+from Models.Joint import Joint
+from Models.Motor import Motor
 
 
 class JsonParser:
 
     @staticmethod
-    def ReadConfig():
+    def _ReadConfig():
         f = open('examples/position_range.json')
         data = json.load(f)
         f.close()
@@ -19,3 +22,15 @@ class JsonParser:
         f.close()
 
         return data
+
+    @staticmethod
+    def ParseConfigJson():
+        config = JsonParser._ReadConfig()
+        motors = []
+        for element in config:
+            motors.append(Motor(name=element['name'],
+                            JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                                                                        element['joint']['upper_limit'],
+                                                                        element['joint']['speed'],
+                                                                        element['joint']['id']))))
+        return motors

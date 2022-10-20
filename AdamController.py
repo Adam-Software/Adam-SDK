@@ -21,7 +21,7 @@ class AdamController(metaclass=MetaSingleton):
     __servoConnection = ServoConnection
 
     def __init__(self) -> None:
-        self.motors = JsonParser.ReadConfig()
+        self.motors = JsonParser.ParseConfigJson()
         self.__name2Motor = {}
         self.__servoConnection = ServoConnection()
 
