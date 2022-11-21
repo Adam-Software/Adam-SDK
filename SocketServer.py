@@ -2,13 +2,17 @@ import asyncio
 import json
 
 import websockets
+from yrouter import route
+from yrouter_websockets import router
 
 from AdamController import AdamController
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 
+adamVersion = "adam-2.6"
 
-async def adam(websocket):
+
+async def offBoard(websocket):
     adamController = AdamController()
 
     async for message in websocket:
@@ -21,8 +25,28 @@ async def adam(websocket):
         adamController.HandleCommand(SerializableCommands(commands))
 
 
+async def onboard(websocket):
+    await websocket.send("onboard")
+
+
+async def movement(websocket):
+    await websocket.send("movement")
+
+
+async def state(websocket):
+    await websocket.send("movement")
+
+
+routes = (
+    route(f"/{adamVersion}/off-board", offBoard),
+    route(f"/{adamVersion}/onboard", onboard),
+    route(f"/{adamVersion}/movement", movement),
+    route(f"/{adamVersion}/state", offBoard),
+)
+
+
 async def main():
-    async with websockets.serve(adam, "0.0.0.0", 8000):
+    async with websockets.serve(router(routes), "0.0.0.0", 8000):
         await asyncio.Future()  # run forever
 
 

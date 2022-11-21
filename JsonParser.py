@@ -29,8 +29,8 @@ class JsonParser:
         motors = []
         for element in config:
             motors.append(Motor(name=element['name'],
-                            JointController=JointController(joint=Joint(element['joint']['lover_limit'],
-                                                                        element['joint']['upper_limit'],
-                                                                        element['joint']['speed'],
-                                                                        element['joint']['id']))))
+                                JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                                                                            element['joint']['upper_limit'],
+                                                                            element['joint']['speed'],
+                                                                            element['joint']['id']))))
         return motors
