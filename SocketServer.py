@@ -1,5 +1,6 @@
 import asyncio
 import json
+from typing import Sequence
 
 import websockets
 from yrouter import route
@@ -38,10 +39,11 @@ async def state(websocket):
 
 
 routes = (
-    route(f"/off-board", offBoard, adamVersion),
-    route(f"/onboard", onboard, adamVersion),
-    route(f"/movement", movement, adamVersion),
-    route(f"/state", offBoard, adamVersion),
+    route(f"/{adamVersion}", subroutes=Sequence['/onboard', onboard]['/movement', movement]['/state', state]['/onboard', offBoard])
+
+    # route(f"/onboard", onboard, adamVersion),
+    # route(f"/movement", movement, adamVersion),
+    # route(f"/state", offBoard, adamVersion),
 )
 
 
