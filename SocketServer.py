@@ -37,18 +37,19 @@ async def movement(websocket):
 async def state(websocket):
     await websocket.send("movement")
 
-
 routes = (
-    #route(f"/{adamVersion}", subroutes=Sequence['/onboard', onboard]['/movement', movement]['/state', state]['/onboard', offBoard])
-    route(f"/{adamVersion}", subroutes=Optional[Sequence["/movement" == movement],
-                                                Sequence["/state" == state],
-                                                Sequence["/onboard" == onboard],
-                                                Sequence["/off-board" == offBoard]])
+    route("/"),
+    route(f"/{adamVersion}", lambda: None, subroutes=(
+        route("/onboard>", onboard, name="onboard"),
+        route("/off-board>", offBoard, name="off-board"),
+        route("/movement", movement, name="movement"),
+        route("/state", state, name="state")
+    )))
 
     # route(f"/onboard", onboard, adamVersion),
     # route(f"/movement", movement, adamVersion),
     # route(f"/state", offBoard, adamVersion),
-)
+
 
 
 async def main():
