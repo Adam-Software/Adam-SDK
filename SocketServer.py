@@ -35,13 +35,13 @@ async def movement(websocket):
 
 
 async def state(websocket):
-    await websocket.send("movement")
+    await websocket.send("state")
 
 routes = (
     route("/"),
     route(f"/{adamVersion}", lambda: None, subroutes=(
-        route("/onboard>", onboard, name="onboard"),
-        route("/off-board>", offBoard, name="off-board"),
+        route("/onboard", onboard, name="onboard"),
+        route("/off-board", offBoard, name="off-board"),
         route("/movement", movement, name="movement"),
         route("/state", state, name="state")
     )))
