@@ -40,10 +40,10 @@ async def state(websocket):
 
 routes = (
     #route(f"/{adamVersion}", subroutes=Sequence['/onboard', onboard]['/movement', movement]['/state', state]['/onboard', offBoard])
-    route(f"/{adamVersion}", subroutes=Optional[Sequence["/movement", movement],
-                                                Sequence["/state", state],
-                                                Sequence["/onboard", onboard],
-                                                Sequence["/off-board", offBoard]])
+    route(f"/{adamVersion}", subroutes=Optional[Sequence["/movement", {movement}],
+                                                Sequence["/state", {state}],
+                                                Sequence["/onboard", {onboard}],
+                                                Sequence["/off-board", {offBoard}]])
 
     # route(f"/onboard", onboard, adamVersion),
     # route(f"/movement", movement, adamVersion),
