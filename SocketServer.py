@@ -38,10 +38,10 @@ async def state(websocket):
 
 
 routes = (
-    route(f"/off-board", offBoard),
-    route(f"/onboard", onboard),
-    route(f"/movement", movement),
-    route(f"/state", offBoard),
+    route(f"/off-board", offBoard, adamVersion),
+    route(f"/onboard", onboard, adamVersion),
+    route(f"/movement", movement, adamVersion),
+    route(f"/state", offBoard, adamVersion),
 )
 
 
