@@ -1,6 +1,5 @@
 import asyncio
 import json
-from typing import Sequence, Optional
 
 import websockets
 from yrouter import route
@@ -9,6 +8,7 @@ from yrouter_websockets import router
 from AdamController import AdamController
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
+from serial_motor_control.MotorControl import MotorControl
 
 adamVersion = "adam-2.6"
 
@@ -30,26 +30,27 @@ async def onboard(websocket):
     await websocket.send("onboard")
 
 
-async def movement(websocket):
+async def movement(websocket, motorId: int, speedFront: int, speedBack: int):
+    motorControl = MotorControl()
+    motorControl.MotionManage(motorId, speedFront, speedBack)
     await websocket.send("movement")
 
 
 async def state(websocket):
     await websocket.send("state")
 
+
 routes = (
     route("/"),
-    route(f"/{adamVersion}", lambda: None, subroutes=(
+    route(f"/{adamVersion}", subroutes=(
+        # compute vr on rasp board
         route("/onboard", onboard, name="onboard"),
+        # compute vr on pc
         route("/off-board", offBoard, name="off-board"),
-        route("/movement", movement, name="movement"),
+        # motor manage
+        route("/movement/<int:motorId>/<int:speedFront>/<int:speedBack>", movement, name="movement"),
         route("/state", state, name="state")
     )))
-
-    # route(f"/onboard", onboard, adamVersion),
-    # route(f"/movement", movement, adamVersion),
-    # route(f"/state", offBoard, adamVersion),
-
 
 
 async def main():
