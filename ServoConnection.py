@@ -36,7 +36,7 @@ class ServoConnection:
 
             if servoId == 4 or servoId == 3:
                 self.fingersControl.FingersManage(servoId, goalPos, servoSpeed)
-                return
+                continue
 
             scs_comm_result, scs_error = self.packetHandler.write2ByteTxRx(self.portHandler, servoId,
                                                                            self.ADDR_STS_GOAL_SPEED,
