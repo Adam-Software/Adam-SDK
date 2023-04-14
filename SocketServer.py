@@ -39,6 +39,10 @@ async def movement(websocket, motorId: int, speedFront: int, speedBack: int):
 async def state(websocket):
     await websocket.send("state")
 
+async def debug(websocket, jsonString: str):
+    print(jsonString)
+    await  websocket.send("debug")
+
 
 routes = (
     route("/"),
@@ -49,7 +53,8 @@ routes = (
         route("/off-board", offBoard, name="off-board"),
         # motor manage
         route("/movement/<int:motorId>/<int:speedFront>/<int:speedBack>", movement, name="movement"),
-        route("/state", state, name="state")
+        route("/state", state, name="state"),
+        route("/debug/<str:jsonString>", debug, name="debug")
     )))
 
 
