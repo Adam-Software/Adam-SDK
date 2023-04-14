@@ -1,0 +1,50 @@
+{
+  "motors":
+  [
+    {
+      "name": "Head",
+      "goal_position": 50,
+      "speed": 1500
+    },
+    {
+      "name": "Neck",
+      "goal_position": 50
+    },
+    {
+      "name": "Right_UpperArm",
+      "goal_position": 10
+    },
+    {
+      "name": "Left_UpperArm",
+      "goal_position": 10
+    },
+    {
+      "name": "Chest",
+      "goal_position": 50
+    },
+    {
+      "name": "Left_UpperLeg",
+      "goal_position": 0
+    },
+    {
+      "name": "Right_UpperLeg",
+      "goal_position": 0
+    },
+    {
+      "name": "Left_LowerLeg",
+      "goal_position": 0
+    },
+    {
+      "name": "Right_LowerLeg",
+      "goal_position": 0
+    },
+    {
+      "name": "Left_Foot",
+      "goal_position": 0
+    },
+    {
+      "name": "Right_Foot",
+      "goal_position": 0
+    }
+  ]
+}

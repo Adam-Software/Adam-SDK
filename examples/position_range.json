@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Head",
+    "joint": {
+      "id": 1,
+      "lover_limit": 1800,
+      "upper_limit": 2300,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Neck",
+    "joint": {
+      "id": 2,
+      "lover_limit": 1548,
+      "upper_limit": 2548,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Right_Hand",
+    "joint": {
+      "id": 3,
+      "lover_limit": 0,
+      "upper_limit": 200,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_Hand",
+    "joint": {
+      "id": 4,
+      "lover_limit": 0,
+      "upper_limit": 200,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Right_LowerArm_Down",
+    "joint": {
+      "id": 5,
+      "lover_limit": 3618,
+      "upper_limit": 1570,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_LowerArm_Down",
+    "joint": {
+      "id": 6,
+      "lover_limit": 75,
+      "upper_limit": 2121,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Right_LowerArm_Up",
+    "joint": {
+      "id": 7,
+      "lover_limit": 3543,
+      "upper_limit": 1495,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_LowerArm_Up",
+    "joint": {
+      "id": 8,
+      "lover_limit": 799,
+      "upper_limit": 2847,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Right_UpperArm",
+    "joint": {
+      "id": 9,
+      "lover_limit": 3641,
+      "upper_limit": 2617,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_UpperArm",
+    "joint": {
+      "id": 10,
+      "lover_limit": 487,
+      "upper_limit": 1511,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Right_Shoulder",
+    "joint": {
+      "id": 11,
+      "lover_limit": 2048,
+      "upper_limit": 8793,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_Shoulder",
+    "joint": {
+      "id": 12,
+      "lover_limit": 2048,
+      "upper_limit": 8793,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Chest",
+    "joint": {
+      "id": 13,
+      "lover_limit": 0,
+      "upper_limit": 3900,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "LoverChest",
+    "joint": {
+      "id": 14,
+      "lover_limit": 3700,
+      "upper_limit": 200,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Spine",
+    "joint": {
+      "id": 15,
+      "lover_limit": 3700,
+      "upper_limit": 400,
+      "speed": 1000
+    }
+  },
+  {
+    "name": "Left_UpperLeg",
+    "joint": {
+      "id": 16,
+      "lover_limit": 2376,
+      "upper_limit": 881,
+      "speed": 750
+    }
+  },
+  {
+    "name": "Right_UpperLeg",
+    "joint": {
+      "id": 17,
+      "lover_limit": 1868,
+      "upper_limit": 3363,
+      "speed": 750
+    }
+  },
+  {
+    "name": "Left_LowerLeg",
+    "joint": {
+      "id": 18,
+      "lover_limit": 3943,
+      "upper_limit": 952,
+      "speed": 2000
+    }
+  },
+  {
+    "name": "Right_LowerLeg",
+    "joint": {
+      "id": 19,
+      "lover_limit": 173,
+      "upper_limit": 3164,
+      "speed": 2000
+    }
+  },
+  {
+    "name": "Left_Foot",
+    "joint": {
+      "id": 20,
+      "lover_limit": 1004,
+      "upper_limit": 2499,
+      "speed": 900
+    }
+  },
+  {
+    "name": "Right_Foot",
+    "joint": {
+      "id": 21,
+      "lover_limit": 3757,
+      "upper_limit": 2261,
+      "speed": 900
+    }
+  }
+]

@@ -1,0 +1,82 @@
+{
+    "motors": [
+      {
+        "name": "Left_Shoulder",
+        "present_position": 0.0007511265575885773
+      },
+      {
+        "name": "Left_UpperArm",
+        "present_position": 4.726077236227866e-7
+      },
+      {
+        "name": "Left_LowerArm_Up",
+        "present_position": 0.0005746025126427412
+      },
+      {
+        "name": "Left_LowerArm_Down",
+        "present_position": -4.268868369905476e-9
+      },
+      {
+        "name": "Right_Shoulder",
+        "present_position": -0.00043212471064180136
+      },
+      {
+        "name": "Right_UpperArm",
+        "present_position": -3.2929412441262686e-7
+      },
+      {
+        "name": "Right_LowerArm_Up",
+        "present_position": 0.00048309069825336337
+      },
+      {
+        "name": "Right_LowerArm_Down",
+        "present_position": 8.452358883914712e-7
+      },
+      {
+        "name": "Chest",
+        "present_position": 3.356029765200219e-7
+      },
+      {
+        "name": "Right_UpperLeg",
+        "present_position": 0.36566442251205447
+      },
+      {
+        "name": "Right_LowerLeg",
+        "present_position": -5.287071704864502
+      },
+      {
+        "name": "Right_Foot",
+        "present_position": -0.03127811476588249
+      },
+      {
+        "name": "Left_UpperLeg",
+        "present_position": 0.9376586079597473
+      },
+      {
+        "name": "Left_LowerLeg",
+        "present_position": -5.031957626342773
+      },
+      {
+        "name": "Left_Foot",
+        "present_position": 1.731920838356018
+      },
+      {
+        "name": "Neck",
+        "present_position": -2.8016350483994759e-7
+      },
+      {
+        "name": "Head",
+        "present_position": -0.0019112753216177226
+      },
+      {
+        "name": "Spine",
+        "present_position": 0.009148099459707737
+      },
+      {
+        "name": "LoverChest",
+        "present_position": 0.0023935765493661167
+      }
+    ],
+    "left_eye": "Base64",
+    "right_eye": "Base64"
+  }
