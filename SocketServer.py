@@ -9,6 +9,7 @@ from AdamController import AdamController
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 from serial_motor_control.MotorControl import MotorControl
+from signal import SIGINT, SIGTERM
 
 adamVersion = "adam-2.6"
 
@@ -39,6 +40,16 @@ async def movement(websocket, motorId: int, speedFront: int, speedBack: int):
 async def state(websocket):
     await websocket.send("state")
 
+async def debug(websocket): 
+    print('Debug client connected')
+    while True:
+        try:
+            message = await websocket.recv()
+            print(message)
+        except websockets.ConnectionClosedOK:
+            print('Debug client disconnect')
+            break
+
 
 routes = (
     route("/"),
@@ -49,14 +60,26 @@ routes = (
         route("/off-board", offBoard, name="off-board"),
         # motor manage
         route("/movement/<int:motorId>/<int:speedFront>/<int:speedBack>", movement, name="movement"),
-        route("/state", state, name="state")
+        route("/state", state, name="state"),
+        route("/debug", debug, name="debug")
     )))
 
 
 async def main():
-    async with websockets.serve(router(routes), "0.0.0.0", 8000):
-        await asyncio.Future()  # run forever
+    try:
+        async with websockets.serve(router(routes), "0.0.0.0", 8000):
+            await asyncio.Future()  # run forever
+    except:
+        pass
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    loop = asyncio.get_event_loop()
+    main_task = asyncio.ensure_future(main())
+    for signal in [SIGINT, SIGTERM]:
+        loop.add_signal_handler(signal, main_task.cancel)
+    try:
+        loop.run_until_complete(main_task)
+    finally:
+        print('Server stopped')
+        loop.close()
