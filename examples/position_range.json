@@ -117,7 +117,7 @@
     }
   },
   {
-    "name": "lover_chest",
+    "name": "press",
     "joint": {
       "id": 14,
       "lover_limit": 3700,
