@@ -18,7 +18,7 @@
     }
   },
   {
-    "name": "Right_Hand",
+    "name": "right_hand",
     "joint": {
       "id": 3,
       "lover_limit": 0,
@@ -27,7 +27,7 @@
     }
   },
   {
-    "name": "Left_Hand",
+    "name": "left_hand",
     "joint": {
       "id": 4,
       "lover_limit": 0,
