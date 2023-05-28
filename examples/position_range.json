@@ -5,7 +5,7 @@
       "id": 1,
       "lover_limit": 1800,
       "upper_limit": 2300,
-      "speed": 1000
+      "speed": 2000
     }
   },
   {
@@ -14,25 +14,25 @@
       "id": 2,
       "lover_limit": 1548,
       "upper_limit": 2548,
-      "speed": 1000
+      "speed": 2000
     }
   },
   {
     "name": "right_hand",
     "joint": {
       "id": 3,
-      "lover_limit": 0,
-      "upper_limit": 200,
-      "speed": 1000
+      "lover_limit": 2024,
+      "upper_limit": 2350,
+      "speed": 2000
     }
   },
   {
     "name": "left_hand",
     "joint": {
       "id": 4,
-      "lover_limit": 0,
-      "upper_limit": 200,
-      "speed": 1000
+      "lover_limit": 2024,
+      "upper_limit": 2350,
+      "speed": 2000
     }
   },
   {
@@ -57,26 +57,26 @@
     "name": "right_lower_arm_up",
     "joint": {
       "id": 7,
-      "lover_limit": 3543,
-      "upper_limit": 1495,
-      "speed": 1000
+      "lover_limit": 3350,
+      "upper_limit": 1700,
+      "speed": 2000
     }
   },
   {
     "name": "left_lower_arm_up",
     "joint": {
       "id": 8,
-      "lover_limit": 799,
-      "upper_limit": 2847,
-      "speed": 1000
+      "lover_limit": 150,
+      "upper_limit": 1800,
+      "speed": 2000
     }
   },
   {
     "name": "right_upper_arm",
     "joint": {
       "id": 9,
-      "lover_limit": 3641,
-      "upper_limit": 2617,
+      "lover_limit": 2000,
+      "upper_limit": 1030,
       "speed": 1000
     }
   },
@@ -84,8 +84,8 @@
     "name": "left_upper_arm",
     "joint": {
       "id": 10,
-      "lover_limit": 487,
-      "upper_limit": 1511,
+      "lover_limit": 2060,
+      "upper_limit": 3030,
       "speed": 1000
     }
   },
@@ -94,8 +94,8 @@
     "joint": {
       "id": 11,
       "lover_limit": 2048,
-      "upper_limit": 8793,
-      "speed": 1000
+      "upper_limit": 8200,
+      "speed": 2000
     }
   },
   {
@@ -103,43 +103,43 @@
     "joint": {
       "id": 12,
       "lover_limit": 2048,
-      "upper_limit": 8793,
-      "speed": 1000
+      "upper_limit": 8200,
+      "speed": 2000
     }
   },
   {
     "name": "chest",
     "joint": {
       "id": 13,
-      "lover_limit": 0,
-      "upper_limit": 3900,
-      "speed": 1000
+      "lover_limit": 104,
+      "upper_limit": 4096,
+      "speed": 2000
     }
   },
   {
     "name": "press",
     "joint": {
       "id": 14,
-      "lover_limit": 3700,
-      "upper_limit": 200,
-      "speed": 1000
+      "lover_limit": 2770,
+      "upper_limit": 550,
+      "speed": 2000
     }
   },
   {
     "name": "spine",
     "joint": {
       "id": 15,
-      "lover_limit": 3700,
-      "upper_limit": 400,
-      "speed": 1000
+      "lover_limit": 2770,
+      "upper_limit": 550,
+      "speed": 2000
     }
   },
   {
     "name": "left_upper_leg",
     "joint": {
       "id": 16,
-      "lover_limit": 2376,
-      "upper_limit": 881,
+      "lover_limit": 2525,
+      "upper_limit": 1325,
       "speed": 750
     }
   },
@@ -147,8 +147,8 @@
     "name": "right_upper_leg",
     "joint": {
       "id": 17,
-      "lover_limit": 1868,
-      "upper_limit": 3363,
+      "lover_limit": 1800,
+      "upper_limit": 3000,
       "speed": 750
     }
   },
@@ -156,8 +156,8 @@
     "name": "left_lower_leg",
     "joint": {
       "id": 18,
-      "lover_limit": 3943,
-      "upper_limit": 952,
+      "lover_limit": 3625,
+      "upper_limit": 1225,
       "speed": 2000
     }
   },
@@ -165,8 +165,8 @@
     "name": "right_lower_leg",
     "joint": {
       "id": 19,
-      "lover_limit": 173,
-      "upper_limit": 3164,
+      "lover_limit": 70,
+      "upper_limit": 2470,
       "speed": 2000
     }
   },
@@ -174,8 +174,8 @@
     "name": "left_foot",
     "joint": {
       "id": 20,
-      "lover_limit": 1004,
-      "upper_limit": 2499,
+      "lover_limit": 470,
+      "upper_limit": 1670,
       "speed": 900
     }
   },
@@ -183,8 +183,8 @@
     "name": "right_foot",
     "joint": {
       "id": 21,
-      "lover_limit": 3757,
-      "upper_limit": 2261,
+      "lover_limit": 3785,
+      "upper_limit": 2585,
       "speed": 900
     }
   }
