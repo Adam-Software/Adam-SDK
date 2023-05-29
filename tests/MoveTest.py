@@ -23,28 +23,3 @@ if __name__ == '__main__':
     angular_velocity = 0.0         # без вращения вокруг оси Z
 
     adamController.Move(linear_velocity, angular_velocity)
-
-    #Выставление в дефолтную позицию
-    #adamController.HandleCommand(commands=SerializableCommands(
-    #    [MotorCommand('head', 100),
-    #     MotorCommand('neck', 100),
-    #     MotorCommand('right_upper_arm', 10),
-    #     MotorCommand('left_upper_arm', 10),
-    #     MotorCommand('chest', 50),
-    #     MotorCommand('left_upper_leg', 10),
-    #     MotorCommand('right_upper_leg', 10)]))
-
-    #time.sleep(5)
-
-    #adamController2 = AdamController()
-    #adamController2.HandleCommand(commands=HandCalculate("left", 0, 65, 0))
-
-    #time.sleep(5)
-
-    #adamController3 = AdamController()
-    #adamController3.HandleCommand(commands=HandCalculate("right", 0, 65, 0))
-    
-    #time.sleep(5)
-
-    #возврат в дефолтную позицию
-    #adamController.Reset()
