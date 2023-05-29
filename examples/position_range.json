@@ -36,24 +36,6 @@
     }
   },
   {
-    "name": "right_lower_arm_down",
-    "joint": {
-      "id": 5,
-      "lover_limit": 3618,
-      "upper_limit": 1570,
-      "speed": 1000
-    }
-  },
-  {
-    "name": "left_lower_arm_down",
-    "joint": {
-      "id": 6,
-      "lover_limit": 75,
-      "upper_limit": 2121,
-      "speed": 1000
-    }
-  },
-  {
     "name": "right_lower_arm_up",
     "joint": {
       "id": 7,
@@ -120,15 +102,6 @@
     "name": "press",
     "joint": {
       "id": 14,
-      "lover_limit": 2770,
-      "upper_limit": 550,
-      "speed": 2000
-    }
-  },
-  {
-    "name": "spine",
-    "joint": {
-      "id": 15,
       "lover_limit": 2770,
       "upper_limit": 550,
       "speed": 2000
