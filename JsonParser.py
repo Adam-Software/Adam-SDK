@@ -19,7 +19,7 @@ class JsonParser:
 
     @staticmethod
     def ReadCommand():
-        f = open('examples/SerializableCommandHead.json')
+        f = open('f'{current}/examples/SerializableCommandHead.json')
         data = json.load(f)
         f.close()
 
