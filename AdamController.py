@@ -25,7 +25,7 @@ class AdamController(metaclass=MetaSingleton):
         self.moveController = MecanumMoveController()
 
         for motor in self.motors:
-            motor.start_position = motor.present_position
+            motor.start_position = motor.target_position
         self._update()
 
     def _createNameToMotorMapping(self) -> Dict[str, Motor]:
