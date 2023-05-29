@@ -19,7 +19,7 @@ class MetaSingleton(type):
 
 class AdamController(metaclass=MetaSingleton):
     def __init__(self) -> None:
-        self.motors = JsonParser.parseConfigJson()
+        self.motors = JsonParser.ParseConfigJson()
         self.nameToMotor = self._createNameToMotorMapping()
         self.servoConnection = ServoConnection()
         self._initializeJointControllers()
@@ -33,7 +33,7 @@ class AdamController(metaclass=MetaSingleton):
 
     def _initializeJointControllers(self):
         for motor in self.motors:
-            motor.JointController.setServoConnection(self.servoConnection)
+            motor.JointController.SetServoConnection(self.servoConnection)
 
     def _setMotorTargetPosition(self, motorName, targetPosition, speed):
         motor = self.nameToMotor[motorName]
@@ -41,7 +41,7 @@ class AdamController(metaclass=MetaSingleton):
 
         if speed != 0:
             joint = motor.JointController
-            joint.setSpeed(speed)
+            joint.SetSpeed(speed)
 
     def _update(self):
         for motor in self.nameToMotor.values():
