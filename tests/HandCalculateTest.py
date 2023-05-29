@@ -43,4 +43,4 @@ if __name__ == '__main__':
     time.sleep(5)
 
     #возврат в дефолтную позицию
-    adamController.Reset()
+    adamController.ReturnToStartPosition()
