@@ -1,15 +1,17 @@
+import sys
+import os
 import json
-
 from JointController import JointController
 from Models.Joint import Joint
 from Models.Motor import Motor
 
+current = os.path.dirname(os.path.realpath(__file__))
 
 class JsonParser:
 
     @staticmethod
     def _ReadConfig():
-        f = open('examples/position_range.json')
+        f = open(f'{current}/examples/position_range.json')
         data = json.load(f)
         f.close()
 
