@@ -4,6 +4,7 @@ from typing import Any
 class Motor:
     name: str
     JointController: Any
+    start_position:float
     target_position: float
     present_position: int
 
@@ -12,3 +13,4 @@ class Motor:
         self.JointController = JointController
         self.target_position = target_position
         self.present_position = 0
+        self.start_position = 0

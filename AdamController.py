@@ -17,36 +17,44 @@ class MetaSingleton(type):
 
 class AdamController(metaclass=MetaSingleton):
     def __init__(self) -> None:
-        self.motors = JsonParser.ParseConfigJson()
-        self.__name2Motor = self._create_name_to_motor_mapping()
-        self.__servoConnection = ServoConnection()
-        self._initialize_joint_controllers()
+        self.motors = JsonParser.parseConfigJson()
+        self.nameToMotor = self._createNameToMotorMapping()
+        self.servoConnection = ServoConnection()
+        self._initializeJointControllers()
 
-    def _create_name_to_motor_mapping(self) -> Dict[str, Motor]:
+        for motor in self.motors:
+            motor.startPosition = motor.presentPosition
+
+    def _createNameToMotorMapping(self) -> Dict[str, Motor]:
         return {motor.name: motor for motor in self.motors}
 
-    def _initialize_joint_controllers(self):
+    def _initializeJointControllers(self):
         for motor in self.motors:
-            motor.JointController.SetServoConnection(self.__servoConnection)
+            motor.JointController.setServoConnection(self.servoConnection)
 
-    def _set_motor_target_position(self, motorName, targetPosition, speed):
-        motor = self.__name2Motor[motorName]
+    def _setMotorTargetPosition(self, motorName, targetPosition, speed):
+        motor = self.nameToMotor[motorName]
         motor.target_position = targetPosition
 
         if speed != 0:
             joint = motor.JointController
-            joint.SetSpeed(speed)
+            joint.setSpeed(speed)
 
     def _update(self):
-        for motor in self.__name2Motor.values():
+        for motor in self.nameToMotor.values():
             joint = motor.JointController
-            joint.RotateTo(motor.target_position)
-            motor.present_position = joint.GetPresentPosition()
+            joint.rotateTo(motor.target_position)
+            motor.present_position = joint.getPresentPosition()
 
-        self.__servoConnection.InsertCommandServo()
+        self.servoConnection.insertCommandServo()
 
     def HandleCommand(self, commands: SerializableCommands):
         for command in commands.motors:
-            self._set_motor_target_position(
+            self._setMotorTargetPosition(
                 command.name, command.goal_position, command.speed)
+        self._update()
+
+    def ReturnToStartPosition(self):
+        for motor in self.motors:
+            motor.target_position = motor.start_position
         self._update()
