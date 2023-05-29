@@ -26,6 +26,7 @@ class AdamController(metaclass=MetaSingleton):
 
         for motor in self.motors:
             motor.start_position = motor.present_position
+        self._update()
 
     def _createNameToMotorMapping(self) -> Dict[str, Motor]:
         return {motor.name: motor for motor in self.motors}
@@ -45,7 +46,7 @@ class AdamController(metaclass=MetaSingleton):
     def _update(self):
         for motor in self.nameToMotor.values():
             joint = motor.JointController
-            joint.rotateTo(motor.target_position)
+            joint.RotateTo(motor.target_position)
             motor.present_position = joint.getPresentPosition()
 
         self.servoConnection.insertCommandServo()
