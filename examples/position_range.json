@@ -1,6 +1,7 @@
 [
   {
     "name": "head",
+    "target_position": 50,
     "joint": {
       "id": 1,
       "lover_limit": 1800,
@@ -10,6 +11,7 @@
   },
   {
     "name": "neck",
+    "target_position":50,
     "joint": {
       "id": 2,
       "lover_limit": 1548,
@@ -55,6 +57,7 @@
   },
   {
     "name": "right_upper_arm",
+    "target_position":10,
     "joint": {
       "id": 9,
       "lover_limit": 2000,
@@ -64,6 +67,7 @@
   },
   {
     "name": "left_upper_arm",
+    "target_position":10,
     "joint": {
       "id": 10,
       "lover_limit": 2060,
@@ -91,6 +95,7 @@
   },
   {
     "name": "chest",
+    "target_position":50,
     "joint": {
       "id": 13,
       "lover_limit": 104,

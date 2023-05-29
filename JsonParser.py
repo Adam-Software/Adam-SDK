@@ -7,6 +7,7 @@ from Models.Motor import Motor
 
 current = os.path.dirname(os.path.realpath(__file__))
 
+
 class JsonParser:
 
     @staticmethod
@@ -19,7 +20,7 @@ class JsonParser:
 
     @staticmethod
     def ReadCommand():
-        f = open('f'{current}/examples/SerializableCommandHead.json')
+        f = open(f'{current}/examples/SerializableCommandHead.json')
         data = json.load(f)
         f.close()
 
@@ -31,6 +32,7 @@ class JsonParser:
         motors = []
         for element in config:
             motors.append(Motor(name=element['name'],
+                                target_position=element['target_position'],
                                 JointController=JointController(joint=Joint(element['joint']['lover_limit'],
                                                                             element['joint']['upper_limit'],
                                                                             element['joint']['speed'],
