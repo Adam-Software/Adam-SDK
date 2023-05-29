@@ -43,11 +43,4 @@ if __name__ == '__main__':
     time.sleep(5)
 
     #возврат в дефолтную позицию
-    adamController.HandleCommand(commands=SerializableCommands(
-        [MotorCommand('head', 50),
-         MotorCommand('neck', 50),
-         MotorCommand('right_upper_arm', 10),
-         MotorCommand('left_upper_arm', 10),
-         MotorCommand('chest', 50),
-         MotorCommand('left_upper_leg', 0),
-         MotorCommand('right_upper_leg', 0)]))
+    adamController.Reset()

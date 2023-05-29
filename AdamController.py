@@ -35,6 +35,16 @@ class AdamController(metaclass=MetaSingleton):
         if speed != 0:
             joint = self.__name2Motor[motorName].JointController
             joint.SetSpeed(speed)
+    
+    def Reset(self):
+        self.motors = JsonParser.ParseConfigJson()
+        self.__name2Motor = {}
+        self.__servoConnection = ServoConnection()
+    
+        for motor in self.motors:
+            motor.JointController.SetServoConnection(self.__servoConnection)
+            self.__name2Motor[motor.name] = motor
+        self.__Update()
 
     def __Update(self):
         joint: JointController
