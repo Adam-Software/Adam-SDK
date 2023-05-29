@@ -62,5 +62,5 @@ class AdamController(metaclass=MetaSingleton):
             motor.target_position = motor.start_position
         self._update()
     
-    def Move(self, linear_velocity: List[float, float], angular_velocity: float) -> None:
+    def Move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
         self.moveController.move(linear_velocity, angular_velocity)
