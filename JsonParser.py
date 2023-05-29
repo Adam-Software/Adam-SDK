@@ -31,8 +31,12 @@ class JsonParser:
         config = JsonParser._ReadConfig()
         motors = []
         for element in config:
+            if 'target_position' in element:
+                target_position = element['target_position']
+            else:
+                target_position = 0
             motors.append(Motor(name=element['name'],
-                                target_position=element['target_position'],
+                                target_position=target_position,
                                 JointController=JointController(joint=Joint(element['joint']['lover_limit'],
                                                                             element['joint']['upper_limit'],
                                                                             element['joint']['speed'],
