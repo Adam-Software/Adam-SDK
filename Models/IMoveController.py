@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ast import List, Tuple
+from typing import Tuple
 from Models.Motor import Motor
 
 class IMoveController(ABC):

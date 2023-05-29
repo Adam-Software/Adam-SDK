@@ -1,6 +1,7 @@
-from ast import List, Tuple
+from typing import List, Tuple
 from Models.IMoveController import IMoveController
 from Models.Motor import Motor
+
 
 class MecanumMoveController(IMoveController):
     def move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:

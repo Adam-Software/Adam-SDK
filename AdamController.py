@@ -1,8 +1,7 @@
-from ast import Tuple
 from JsonParser import JsonParser
 from MecanumMoveController import MecanumMoveController
 from Models.Motor import Motor
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from JointController import JointController
 from Models.SerializableCommands import SerializableCommands
 from ServoConnection import ServoConnection
@@ -26,7 +25,7 @@ class AdamController(metaclass=MetaSingleton):
         self.moveController = MecanumMoveController()
 
         for motor in self.motors:
-            motor.startPosition = motor.presentPosition
+            motor.start_position = motor.present_position
 
     def _createNameToMotorMapping(self) -> Dict[str, Motor]:
         return {motor.name: motor for motor in self.motors}
