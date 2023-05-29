@@ -1,4 +1,6 @@
+from ast import Tuple
 from JsonParser import JsonParser
+from MecanumMoveController import MecanumMoveController
 from Models.Motor import Motor
 from typing import Dict, List
 from JointController import JointController
@@ -21,6 +23,7 @@ class AdamController(metaclass=MetaSingleton):
         self.nameToMotor = self._createNameToMotorMapping()
         self.servoConnection = ServoConnection()
         self._initializeJointControllers()
+        self.moveController = MecanumMoveController()
 
         for motor in self.motors:
             motor.startPosition = motor.presentPosition
@@ -58,3 +61,6 @@ class AdamController(metaclass=MetaSingleton):
         for motor in self.motors:
             motor.target_position = motor.start_position
         self._update()
+    
+    def Move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
+        self.moveController.move(self.motors, linear_velocity, angular_velocity)
