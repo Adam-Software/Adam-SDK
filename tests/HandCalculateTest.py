@@ -1,11 +1,5 @@
-from turtle import right
 from AdamController import AdamController
-from Models.Joint import Joint
-from JointController import JointController
-from JsonParser import JsonParser
-from Models.Motor import Motor
 from Models.MotorCommand import MotorCommand
-from Models.MotorEnum import MotorEnum
 from Models.SerializableCommands import SerializableCommands
 import time
 
@@ -19,7 +13,7 @@ if __name__ == '__main__':
 
     adamController = AdamController()
 
-    #Базовые значения
+    #Выставление в дефолтную позицию
     adamController.HandleCommand(commands=SerializableCommands(
         [MotorCommand('head', 50),
          MotorCommand('neck', 50),
