@@ -49,7 +49,7 @@ class AdamController(metaclass=MetaSingleton):
             joint.RotateTo(motor.target_position)
             motor.present_position = joint.GetPresentPosition()
 
-        self.servoConnection.insertCommandServo()
+        self.servoConnection.InsertCommandServo()
 
     def HandleCommand(self, commands: SerializableCommands):
         for command in commands.motors:
