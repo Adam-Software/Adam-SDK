@@ -8,7 +8,7 @@ from yrouter_websockets import router
 from AdamController import AdamController
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
-from serial_motor_control.MotorControl import MotorControl
+#from serial_motor_control.MotorControl import MotorControl
 from signal import SIGINT, SIGTERM
 
 adamVersion = "adam-2.6"
@@ -67,7 +67,7 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8000):
+        async with websockets.serve(router(routes), "0.0.0.0", 8000): #, ping_interval=0, ping_timeout=None):
             await asyncio.Future()  # run forever
     except:
         pass
