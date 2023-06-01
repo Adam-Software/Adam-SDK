@@ -71,7 +71,7 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8000):
+        async with websockets.serve(router(routes), "0.0.0.0", 6000, ping_interval=0, ping_timeout=None):
             await asyncio.Future()  # run forever
     except:
         print('Server crash')

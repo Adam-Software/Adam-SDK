@@ -78,14 +78,14 @@ class MecanumMoveController(IMoveController):
         rear_right_speed = vx - vy + wz
 
         max_speed = max(abs(front_left_speed), abs(front_right_speed), abs(rear_left_speed), abs(rear_right_speed))
-        print(linear_velocity,angular_velocity)
+        #print(linear_velocity,angular_velocity)
 
         if max_speed > 1:
             front_left_speed /= max_speed
             front_right_speed /= max_speed
             rear_left_speed /= max_speed
             rear_right_speed /= max_speed
-        print("front_left_speed ",front_left_speed,"front_right_speed ",front_right_speed,"rear_left_speed ",rear_left_speed,"rear_right_speed ",rear_right_speed)
+        #print("front_left_speed ",front_left_speed,"front_right_speed ",front_right_speed,"rear_left_speed ",rear_left_speed,"rear_right_speed ",rear_right_speed)
 
         if(front_left_speed >= 0):
             self.front_left.setDirection(True)
