@@ -32,7 +32,7 @@ class AdamController(metaclass=MetaSingleton):
         # Парсинг конфигурационного файла JSON и возвращение списка моторов
         motors = JsonParser.parse_config_json()
         #TODO: Тут пахнет грязно
-        for motor in self.motors:
+        for motor in motors:
             motor.start_position = motor.target_position
         return motors
 
