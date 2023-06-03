@@ -5,28 +5,28 @@ from ServoConnection import ServoConnection
 
 class JointController:
 
-    _goalPosition: int
-    _servoConnection: ServoConnection
-    __targetPosition: float
+    _goal_position: int
+    _servo_connection: ServoConnection
+    __target_position: float
     __joint: Joint
 
     def __init__(self, joint: Joint) -> None:
         self.__joint = joint
-        self.__targetPosition = -1
-        self._servoConnection = Any
+        self.__target_position = -1
+        self._servo_connection = Any
 
-    def RotateTo(self, newTargetPosition: float) -> None:
-        if newTargetPosition != self.__targetPosition:
-            self.__targetPosition = newTargetPosition
-            _goalPosition = ((self.__joint.upper_limit - self.__joint.lover_limit) *
-                             (self.__targetPosition/100)) + self.__joint.lover_limit
-            self._servoConnection.AppendCommandBuffer([self.__joint.id, self.__joint.speed, _goalPosition])
+    def RotateTo(self, target_position: float) -> None:
+        if target_position != self.__target_position:
+            self.__target_position = target_position
+            _goal_position = ((self.__joint.upper_limit - self.__joint.lover_limit) *
+                             (self.__target_position/100)) + self.__joint.lover_limit
+            self._servo_connection.AppendCommandBuffer((self.__joint.id, self.__joint.speed, _goal_position))
 
-    def set_speed(self, newSpeed: int):
-        self.__joint.speed = newSpeed
+    def set_speed(self, speed: int):
+        self.__joint.speed = speed
 
-    def servo_connection(self, servoConnection: ServoConnection):
-        self._servoConnection = servoConnection
+    def servo_connection(self, servo_connection: ServoConnection):
+        self._servo_connection = servo_connection
 
     def get_present_position(self):
-        return self.__targetPosition
+        return self.__target_position

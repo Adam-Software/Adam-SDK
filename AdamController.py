@@ -27,10 +27,11 @@ class AdamController(metaclass=MetaSingleton):
 
         for motor in self.motors:
             motor.start_position = motor.target_position
+
         self._update()
 
     def _parseConfigJson(self) -> List[Motor]:
-        return JsonParser.ParseConfigJson()
+        return JsonParser.parse_config_json()
 
     def _create_name_to_motor_mapping(self) -> Dict[str, Motor]:
         return {motor.name: motor for motor in self.motors}

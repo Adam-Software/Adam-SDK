@@ -14,7 +14,7 @@ def AdamControllerJson():
     motors = []
     for element in config:
         motors.append(Motor(name=element['name'],
-                            JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                            joint_controller=JointController(joint=Joint(element['joint']['lover_limit'],
                                                                         element['joint']['upper_limit'],
                                                                         element['joint']['speed'],
                                                                         element['joint']['id']))))

@@ -11,7 +11,7 @@ current = os.path.dirname(os.path.realpath(__file__))
 class JsonParser:
 
     @staticmethod
-    def _ReadConfig():
+    def _read_config():
         f = open(f'{current}/examples/position_range.json')
         data = json.load(f)
         f.close()
@@ -19,7 +19,7 @@ class JsonParser:
         return data
 
     @staticmethod
-    def ReadCommand():
+    def read_command():
         f = open(f'{current}/examples/SerializableCommandHead.json')
         data = json.load(f)
         f.close()
@@ -27,7 +27,7 @@ class JsonParser:
         return data
 
     @staticmethod
-    def ParseConfigJson():
+    def parse_config_json():
         config = JsonParser._ReadConfig()
         motors = []
         for element in config:
@@ -37,7 +37,7 @@ class JsonParser:
                 target_position = 0
             motors.append(Motor(name=element['name'],
                                 target_position=target_position,
-                                JointController=JointController(joint=Joint(element['joint']['lover_limit'],
+                                joint_controller=JointController(joint=Joint(element['joint']['lover_limit'],
                                                                             element['joint']['upper_limit'],
                                                                             element['joint']['speed'],
                                                                             element['joint']['id']))))

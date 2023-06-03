@@ -18,7 +18,7 @@ class ServoConnection:
     groupSyncWrite = GroupSyncWrite(
         portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
 
-    def AppendCommandBuffer(self, command: [int, int, float]):
+    def AppendCommandBuffer(self, command: tuple[int, int, float]):
         self.__doubleBuffer.append(command)
 
     def InsertCommandServo(self):
