@@ -1,48 +1,36 @@
 from typing import List
 from servo_serial.connection import Connection
-from scservo_sdk import *
-
+from scservo_sdk import GroupSyncWrite, SCS_LOBYTE, SCS_HIBYTE
 
 class ServoConnection:
-    __doubleBuffer = List[List[int]]
-
     def __init__(self):
         self.__doubleBuffer = []
 
-    ADDR_STS_GOAL_POSITION = 42
-    ADDR_STS_GOAL_SPEED = 46
-
-    portHandler = Connection().getPortHandler()
-    packetHandler = Connection().getPacketHandler()
-
-    groupSyncWrite = GroupSyncWrite(
-        portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
-
-    def AppendCommandBuffer(self, command: tuple[int, int, float]):
+    def append_command_buffer(self, command: tuple[int, int, float]):
         self.__doubleBuffer.append(command)
 
-    def InsertCommandServo(self):
-        self.SyncWriteServos(self.__doubleBuffer)
+    def sync_write_servos(self):
+        ADDR_STS_GOAL_POSITION = 42
+        ADDR_STS_GOAL_SPEED = 46
 
-    def SyncWriteServos(self, doubleBuffer: List[List[int]]):
+        portHandler = Connection().getPortHandler()
+        packetHandler = Connection().getPacketHandler()
+        groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, ADDR_STS_GOAL_POSITION, 2)
 
-        scs_error = None
-        # scs_comm_result = None
-        scs_add_param_result = None
+        scs_comm_result = []
+        scs_error = []
+        scs_add_param_result = []
 
-        for servoId, servoSpeed, goalPos in doubleBuffer:
-
-            scs_comm_result, scs_error = self.packetHandler.write2ByteTxRx(self.portHandler, servoId,
-                                                                           self.ADDR_STS_GOAL_SPEED,
-                                                                           servoSpeed)
+        for servoId, servoSpeed, goalPos in self.__doubleBuffer:
+            scs_comm_result.append(packetHandler.write2ByteTxRx(portHandler, servoId,
+                                                                ADDR_STS_GOAL_SPEED, servoSpeed))
 
             param_goal_position = [SCS_LOBYTE(int(goalPos)), SCS_HIBYTE(int(goalPos))]
+            scs_add_param_result.append(groupSyncWrite.addParam(servoId, param_goal_position))
 
-            scs_add_param_result = self.groupSyncWrite.addParam(servoId, param_goal_position)
-
-        scs_comm_result = self.groupSyncWrite.txPacket()
+        scs_comm_result.append(groupSyncWrite.txPacket())
 
         self.__doubleBuffer.clear()
-        self.groupSyncWrite.clearParam()
+        groupSyncWrite.clearParam()
 
         return scs_comm_result, scs_error, scs_add_param_result
