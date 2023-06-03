@@ -21,12 +21,13 @@ class MecanumWheelMotor:
     def set_speed(self, speed: float) -> None:
         self.set_direction(speed >= 0)  # Установка направления движения в зависимости от знака скорости
         speed_value = self.calculate_speed_value(speed)  # Вычисление значения скорости
+        print(speed_value)
         self.handle_initial_speed_condition(speed_value)  # Обработка начального условия скорости
         self.write_speed_registers(speed_value)  # Запись значения скорости в регистр
 
     def calculate_speed_value(self, speed: float) -> int:
-        if speed >= 0.1:
-            return int(524 + speed * 499)  # Вычисление значения скорости в соответствии с диапазоном
+        if speed >= 0.1 or speed <= -0.1:
+            return int(524 + abs(speed) * 499)  # Вычисление значения скорости в соответствии с диапазоном
         return 0  # Если скорость меньше 0.1, то установка значения скорости в 0
 
     def handle_initial_speed_condition(self, speed_value: int) -> None:
@@ -34,16 +35,15 @@ class MecanumWheelMotor:
             self.client.write_registers(self.speed_address, 1023, self.address)  # Запись значения инициализации скорости
 
     def write_speed_registers(self, speed_value: int) -> None:
-        self.client.write_registers(self.speed_address, abs(speed_value), self.address)  # Запись значения скорости в регистр
+        self.client.write_registers(self.speed_address, speed_value, self.address)  # Запись значения скорости в регистр
         self.speed = speed_value  # Обновление текущей установленной скорости
 
     def set_direction(self, direction: bool) -> None:
         if self.inverse:
             direction = not direction  # Инвертирование направления движения, если установлен флаг инверсии
-        if self.direction != direction:
-            self.direction = direction
-            self.client.write_registers(self.direction_address, int(direction), self.address)  # Запись значения направления движения в регистр
-
+        #if self.direction != direction:
+        self.client.write_registers(self.direction_address, int(direction), self.address)  # Запись значения направления движения в регистр
+        self.direction = direction
     def get_registers(self) -> None:
         read_reg = self.client.read_input_registers(0, 10, self.address)  # Чтение регистров из устройства
         print(read_reg.registers)  # Вывод прочитанных значений регистров
@@ -65,17 +65,16 @@ class MecanumMoveController:
         wz = angular_velocity
 
         speeds = [
-            vx + vy + wz,
-            vx - vy - wz,
-            vx - vy + wz,
-            vx + vy - wz,
+            vy - vx + wz,
+            vy + vx + wz,
+            vy + vx - wz,
+            vy - vx - wz,
         ]
-
         max_speed = max(map(abs, speeds))  # Вычисление максимальной скорости среди всех колес
 
         if max_speed > 1:
             speeds = [speed / max_speed for speed in speeds]  # Нормализация скоростей, если максимальная скорость больше 1
-
+        print(speeds)
         self.front_left.set_speed(speeds[0])  # Установка скорости для переднего левого колеса
         self.front_right.set_speed(speeds[1])  # Установка скорости для переднего правого колеса
         self.rear_left.set_speed(speeds[2])  # Установка скорости для заднего левого колеса
