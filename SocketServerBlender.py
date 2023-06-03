@@ -23,7 +23,7 @@ async def offBoard(websocket):
         for element in jsonCommands['motors']:
             commands.append(MotorCommand(**element))
 
-        adamController.HandleCommand(SerializableCommands(commands))
+        adamController.handle_command(SerializableCommands(commands))
 
 async def movement(websocket):
     
@@ -36,17 +36,17 @@ async def movement(websocket):
             
             linear_velocity = (x, y)
             angular_velocity = z
-            adamController.Move(linear_velocity, angular_velocity)
+            adamController.move(linear_velocity, angular_velocity)
                 
         except websockets.ConnectionClosedOK:
             print('Debug client disconnect')
             linear_velocity = (0, 0)
             angular_velocity = 0
-            adamController.Move(linear_velocity, angular_velocity)
+            adamController.move(linear_velocity, angular_velocity)
         except:
             linear_velocity = (0, 0)
             angular_velocity = 0
-            adamController.Move(linear_velocity, angular_velocity)
+            adamController.move(linear_velocity, angular_velocity)
 
 async def debug(websocket):
     

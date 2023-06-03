@@ -21,7 +21,7 @@ if __name__ == '__main__':
     adamController = AdamController()
 
     #Выставление в дефолтную позицию
-    adamController.HandleCommand(commands=SerializableCommands(
+    adamController.handle_command(commands=SerializableCommands(
         [MotorCommand('head', 50),
          MotorCommand('neck', 50),
          MotorCommand('right_upper_arm', 10),
@@ -33,14 +33,14 @@ if __name__ == '__main__':
     time.sleep(5)
 
     adamController2 = AdamController()
-    adamController2.HandleCommand(commands=HandCalculate("left", 0, 65, 0))
+    adamController2.handle_command(commands=HandCalculate("left", 0, 65, 0))
 
     time.sleep(5)
 
     adamController3 = AdamController()
-    adamController3.HandleCommand(commands=HandCalculate("right", 0, 65, 0))
+    adamController3.handle_command(commands=HandCalculate("right", 0, 65, 0))
     
     time.sleep(5)
 
     #возврат в дефолтную позицию
-    adamController.ReturnToStartPosition()
+    adamController.return_to_start_position()

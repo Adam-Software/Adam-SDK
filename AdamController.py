@@ -12,55 +12,59 @@ class MetaSingleton(type):
 
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(MetaSingleton, cls).__call__(*args, **kwargs)
+            cls._instances[cls] = super(
+                MetaSingleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
 
 
 class AdamController(metaclass=MetaSingleton):
     def __init__(self) -> None:
-        self.motors = JsonParser.ParseConfigJson()
-        self.nameToMotor = self._createNameToMotorMapping()
-        self.servoConnection = ServoConnection()
-        self._initializeJointControllers()
-        self.moveController = MecanumMoveController()
+        self.motors = self._parseConfigJson()
+        self.name_to_motor = self._create_name_to_motor_mapping()
+        self.servo_connection = ServoConnection()
+        self._initialize_joint_controllers()
+        self.move_controller = MecanumMoveController()
 
         for motor in self.motors:
             motor.start_position = motor.target_position
         self._update()
 
-    def _createNameToMotorMapping(self) -> Dict[str, Motor]:
+    def _parseConfigJson(self) -> List[Motor]:
+        return JsonParser.ParseConfigJson()
+
+    def _create_name_to_motor_mapping(self) -> Dict[str, Motor]:
         return {motor.name: motor for motor in self.motors}
 
-    def _initializeJointControllers(self):
+    def _initialize_joint_controllers(self):
         for motor in self.motors:
-            motor.JointController.SetServoConnection(self.servoConnection)
+            motor.joint_controller.set_servo_connection(self.servo_connection)
 
-    def _setMotorTargetPosition(self, motorName, targetPosition, speed):
-        motor = self.nameToMotor[motorName]
-        motor.target_position = targetPosition
+    def _set_motor_target_position(self, motor_name: str, target_position: float, speed: float):
+        motor = self.name_to_motor[motor_name]
+        motor.target_position = target_position
 
         if speed != 0:
-            joint = motor.JointController
-            joint.SetSpeed(speed)
+            joint = motor.joint_controller
+            joint.set_speed(speed)
 
     def _update(self):
-        for motor in self.nameToMotor.values():
-            joint = motor.JointController
-            joint.RotateTo(motor.target_position)
-            motor.present_position = joint.GetPresentPosition()
+        for motor in self.name_to_motor.values():
+            joint = motor.joint_controller
+            joint.rotate_to(motor.target_position)
+            motor.present_position = joint.get_present_position()
 
-        self.servoConnection.InsertCommandServo()
+        self.servo_connection.insert_command_servo()
 
-    def HandleCommand(self, commands: SerializableCommands):
+    def handle_command(self, commands: SerializableCommands):
         for command in commands.motors:
-            self._setMotorTargetPosition(
+            self._set_motor_target_position(
                 command.name, command.goal_position, command.speed)
         self._update()
 
-    def ReturnToStartPosition(self):
+    def return_to_start_position(self):
         for motor in self.motors:
             motor.target_position = motor.start_position
         self._update()
-    
-    def Move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
-        self.moveController.move(linear_velocity, angular_velocity)
+
+    def move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
+        self.move_controller.move(linear_velocity, angular_velocity)

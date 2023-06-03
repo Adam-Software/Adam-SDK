@@ -22,7 +22,7 @@ class TestProject(unittest.TestCase):
             motors=[Motor(name="Head", JointController=JointController(joint=Joint(2000, 3000, 100, 1))),
                     Motor(name="Neck", JointController=JointController(joint=Joint(1000, 2000, 20, 2)))])
 
-        adamController.HandleCommand(commands=SerializableCommands(
+        adamController.handle_command(commands=SerializableCommands(
             [MotorCommand(MotorEnum.Head.name, 100), MotorCommand(MotorEnum.Neck.name, 50)]))
 
     def AdamControllerJson(self):

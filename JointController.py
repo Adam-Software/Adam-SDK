@@ -22,11 +22,11 @@ class JointController:
                              (self.__targetPosition/100)) + self.__joint.lover_limit
             self._servoConnection.AppendCommandBuffer([self.__joint.id, self.__joint.speed, _goalPosition])
 
-    def SetSpeed(self, newSpeed: int):
+    def set_speed(self, newSpeed: int):
         self.__joint.speed = newSpeed
 
-    def SetServoConnection(self, servoConnection: ServoConnection):
+    def servo_connection(self, servoConnection: ServoConnection):
         self._servoConnection = servoConnection
 
-    def GetPresentPosition(self):
+    def get_present_position(self):
         return self.__targetPosition
