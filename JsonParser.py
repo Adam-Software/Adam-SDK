@@ -28,7 +28,7 @@ class JsonParser:
 
     @staticmethod
     def parse_config_json():
-        config = JsonParser._ReadConfig()
+        config = JsonParser._read_config()
         motors = []
         for element in config:
             if 'target_position' in element:
