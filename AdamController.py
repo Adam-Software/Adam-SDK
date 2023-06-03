@@ -61,7 +61,7 @@ class AdamController(metaclass=MetaSingleton):
             joint.rotate_to(motor.target_position)
             motor.present_position = joint.get_present_position()
 
-        self.servo_connection.insert_command_servo()
+        self.servo_connection.execute_command_servo()
 
     def handle_command(self, commands: SerializableCommands):
         # Обработка команд и установка целевых позиций и скоростей для моторов
