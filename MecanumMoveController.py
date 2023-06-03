@@ -1,11 +1,16 @@
-
 from typing import Tuple
-
 from pymodbus.client.serial import ModbusSerialClient as ModbusClient
 
 
 class MecanumWheelMotor:
-    def __init__(self, client: ModbusClient, address: int, direction_address: int, speed_address: int, inverse: bool = False):
+    def __init__(
+        self,
+        client: ModbusClient,
+        address: int,
+        direction_address: int,
+        speed_address: int,
+        inverse: bool = False,
+    ):
         self.address = address
         self.direction_address = direction_address
         self.speed_address = speed_address
@@ -16,16 +21,28 @@ class MecanumWheelMotor:
 
     def set_speed(self, speed: float) -> None:
         self.set_direction(speed >= 0)
-        if self.speed == 0 and speed != 0:
-            self.client.write_registers(self.speed_address, 1023, self.address)
+        speed_value = self.calculate_speed_value(speed)
+        self.handle_initial_speed_condition(speed_value)
+        self.write_speed_registers(speed_value)
+
+    def calculate_speed_value(self, speed: float) -> int:
+        if speed >= 0.1:
+            return int(524 + speed * 524)
+        return 0
+
+    def handle_initial_speed_condition(self, speed_value: int) -> None:
+        if self.speed == 0 and speed_value != 0:
+            self.client.write_registers(self.speed_address, 1048, self.address)
+
+    def write_speed_registers(self, speed_value: int) -> None:
         self.client.write_registers(
-            self.speed_address, int(abs(speed)), self.address)
-        self.speed = speed
+            self.speed_address, abs(speed_value), self.address)
+        self.speed = speed_value
 
     def set_direction(self, direction: bool) -> None:
         if self.inverse:
             direction = not direction
-        if (self.direction != direction):
+        if self.direction != direction:
             self.direction = direction
             self.client.write_registers(
                 self.direction_address, int(direction), self.address)
@@ -37,8 +54,9 @@ class MecanumWheelMotor:
 
 class MecanumMoveController:
     def __init__(self):
-        client = ModbusClient(method="rtu", port="/dev/ttyUSB1",
-                              stopbits=1, bytesize=8, parity='N', baudrate=9600)
+        client = ModbusClient(
+            method="rtu", port="/dev/ttyUSB1", stopbits=1, bytesize=8, parity='N', baudrate=9600
+        )
         client.connect()
 
         self.front_left = MecanumWheelMotor(client, 22, 2, 3)
@@ -50,22 +68,19 @@ class MecanumMoveController:
         vx, vy = linear_velocity
         wz = angular_velocity
 
-        front_left_speed = vx + vy + wz
-        front_right_speed = vx - vy - wz
-        rear_left_speed = vx - vy + wz
-        rear_right_speed = vx + vy - wz
+        speeds = [
+            vx + vy + wz,
+            vx - vy - wz,
+            vx - vy + wz,
+            vx + vy - wz,
+        ]
 
-        max_speed = max(abs(front_left_speed), abs(front_right_speed), abs(
-            rear_left_speed), abs(rear_right_speed))
+        max_speed = max(map(abs, speeds))
 
-        # normalize_speed
         if max_speed > 1:
-            front_left_speed /= max_speed
-            front_right_speed /= max_speed
-            rear_left_speed /= max_speed
-            rear_right_speed /= max_speed
+            speeds = [speed / max_speed for speed in speeds]
 
-        self.front_left.set_speed(front_left_speed * 1023)
-        self.front_right.set_speed(front_right_speed * 1023)
-        self.rear_left.set_speed(rear_left_speed * 1023)
-        self.rear_right.set_speed(rear_right_speed * 1023)
+        self.front_left.set_speed(speeds[0])
+        self.front_right.set_speed(speeds[1])
+        self.rear_left.set_speed(speeds[2])
+        self.rear_right.set_speed(speeds[3])
