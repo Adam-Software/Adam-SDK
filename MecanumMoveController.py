@@ -26,12 +26,12 @@ class MecanumWheelMotor:
 
     def calculate_speed_value(self, speed: float) -> int:
         if speed >= 0.1:
-            return int(524 + speed * 524)  # Вычисление значения скорости в соответствии с диапазоном
+            return int(524 + speed * 499)  # Вычисление значения скорости в соответствии с диапазоном
         return 0  # Если скорость меньше 0.1, то установка значения скорости в 0
 
     def handle_initial_speed_condition(self, speed_value: int) -> None:
         if self.speed == 0 and speed_value != 0:
-            self.client.write_registers(self.speed_address, 1048, self.address)  # Запись значения инициализации скорости
+            self.client.write_registers(self.speed_address, 1023, self.address)  # Запись значения инициализации скорости
 
     def write_speed_registers(self, speed_value: int) -> None:
         self.client.write_registers(self.speed_address, abs(speed_value), self.address)  # Запись значения скорости в регистр
