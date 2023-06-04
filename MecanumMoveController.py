@@ -21,12 +21,11 @@ class MecanumWheelMotor:
     def set_speed(self, speed: float) -> None:
         self.set_direction(speed >= 0)  # Установка направления движения в зависимости от знака скорости
         speed_value = self.calculate_speed_value(speed)  # Вычисление значения скорости
-        print(speed_value)
         self.handle_initial_speed_condition(speed_value)  # Обработка начального условия скорости
         self.write_speed_registers(speed_value)  # Запись значения скорости в регистр
 
     def calculate_speed_value(self, speed: float) -> int:
-        if speed >= 0.1 or speed <= -0.1:
+        if abs(speed) > 0:
             return int(524 + abs(speed) * 499)  # Вычисление значения скорости в соответствии с диапазоном
         return 0  # Если скорость меньше 0.1, то установка значения скорости в 0
 
