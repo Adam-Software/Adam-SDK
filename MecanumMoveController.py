@@ -62,23 +62,22 @@ class MecanumMoveController:
     def move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
         vx, vy = linear_velocity
         wz = angular_velocity
-
+        
         speeds = [
-            vy - vx + wz,
             vy + vx + wz,
-            vy + vx - wz,
             vy - vx - wz,
+            vy - vx + wz,
+            vy + vx - wz
         ]
         
         max_speed = max(map(abs, speeds))  # Вычисление максимальной скорости среди всех колес
 
         if max_speed > 1:
             speeds = [speed / max_speed for speed in speeds]  # Нормализация скоростей, если максимальная скорость больше 1
-
+        
         for motor, speed in zip([self.front_left, self.front_right, self.rear_left, self.rear_right], speeds):
-            motor.set_speed(speed) # Установка скорост
-
-        # print(speeds)
+            motor.set_speed(speed)
+        
         # self.front_left.set_speed(speeds[0])  # Установка скорости для переднего левого колеса
         # self.front_right.set_speed(speeds[1])  # Установка скорости для переднего правого колеса
         # self.rear_left.set_speed(speeds[2])  # Установка скорости для заднего левого колеса
