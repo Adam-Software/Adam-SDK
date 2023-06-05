@@ -1,13 +1,10 @@
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
-
-from adam_sdk.AdamManager import AdamManager
-from adam_sdk.Models.MotorCommand import MotorCommand
-from adam_sdk.Models.SerializableCommands import SerializableCommands
+from adam_sdk import AdamManager
+from adam_sdk import MotorCommand
+from adam_sdk import SerializableCommands
 import time
 
 def HandCalculate(west: str, angle1: float, angle2: float, angle3: float):

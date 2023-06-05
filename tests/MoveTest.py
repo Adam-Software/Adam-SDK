@@ -1,5 +1,11 @@
-from adam_sdk.AdamManager import AdamManager
 import time
+import os
+import sys
+import os.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+from adam_sdk import AdamManager
+
 
 if __name__ == '__main__':
 

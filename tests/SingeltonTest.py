@@ -1,25 +1,15 @@
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 from adam_sdk import AdamManager
-from adam_sdk.Models.MotorCommand import MotorCommand
-from adam_sdk.Models.SerializableCommands import SerializableCommands
+from adam_sdk import MotorCommand
+from adam_sdk import SerializableCommands
 import time
 
-#def AdamControllerJson():
-#    config = JsonParser.ReadConfig()
-#    motors = []
-#    for element in config:
-#        motors.append(Motor(name=element['name'],
-#                            JointController=JointController(joint=Joint(element['joint']['lover_limit'],
-#                                                                        element['joint']['upper_limit'],
-#                                                                        element['joint']['speed'],
-#                                                                        element['joint']['id']))))
-#    return AdamController(motors)
-
-
 def HandCalculate(west: str, angle1: float, angle2: float, angle3: float, angle4: float):
-    return SerializableCommands([MotorCommand(west + "_Shoulder", angle1),
-                                 MotorCommand(west + "_UpperArm", angle2),
-                                 MotorCommand(west + "_LowerArm_Up", angle3),
-                                 MotorCommand(west + "_LowerArm_Down", angle4)])
+    return SerializableCommands([MotorCommand(west + "_shoulder", angle1),
+                                 MotorCommand(west + "_upper_arm", angle2),
+                                 MotorCommand(west + "_lower_arm_up", angle3)])
 
 
 if __name__ == '__main__':
@@ -28,18 +18,18 @@ if __name__ == '__main__':
 
     #Базовые значения
     adamController.handle_command(commands=SerializableCommands(
-        [MotorCommand('Head', 100),
-         MotorCommand('Neck', 100),
-         MotorCommand('Right_UpperArm', 10),
-         MotorCommand('Left_UpperArm', 10),
-         MotorCommand('Chest', 50)]))
+        [MotorCommand('head', 100),
+         MotorCommand('neck', 100),
+         MotorCommand('right_upper_arm', 10),
+         MotorCommand('left_upper_arm', 10),
+         MotorCommand('chest', 50)]))
 
     time.sleep(5)
 
     adamController2 = AdamManager()
-    adamController2.handle_command(commands=HandCalculate("Left", 0, 30, 0, 0))
+    adamController2.handle_command(commands=HandCalculate("left", 0, 30, 0, 0))
 
     time.sleep(5)
 
     adamController3 = AdamManager()
-    adamController3.handle_command(commands=HandCalculate("Right", 0, 30, 0, 0))
+    adamController3.handle_command(commands=HandCalculate("right", 0, 30, 0, 0))

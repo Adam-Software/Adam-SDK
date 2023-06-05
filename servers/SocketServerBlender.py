@@ -1,3 +1,6 @@
+import os, sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
 import asyncio
 import json
 
@@ -6,9 +9,9 @@ from yrouter import route
 from yrouter_websockets import router
 
 from adam_sdk import AdamManager
-from adam_sdk.Models.MotorCommand import MotorCommand
-from adam_sdk.Models.SerializableCommands import SerializableCommands
-#from serial_motor_control.MotorControl import MotorControl
+from adam_sdk.Models import MotorCommand
+from adam_sdk.Models import SerializableCommands
+
 from signal import SIGINT, SIGTERM
 
 adamVersion = "adam-2.6"
@@ -71,7 +74,7 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8000):
+        async with websockets.serve(router(routes), "0.0.0.0", 6000, ping_interval=0, ping_timeout=None):
             await asyncio.Future()  # run forever
     except:
         print('Server crash')
