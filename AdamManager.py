@@ -17,7 +17,7 @@ class MetaSingleton(type):
         return cls._instances[cls]
 
 
-class AdamController(metaclass=MetaSingleton):
+class AdamManager(metaclass=MetaSingleton):
     def __init__(self) -> None:
         # Инициализация контроллера
         self.motors = self._parseConfigJson()  # Парсинг конфигурационного файла JSON

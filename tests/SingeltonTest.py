@@ -1,5 +1,5 @@
 from turtle import right
-from AdamController import AdamController
+from AdamController import AdamManager
 from Models.Joint import Joint
 from JointController import JointController
 from JsonParser import JsonParser
@@ -30,7 +30,7 @@ def HandCalculate(west: str, angle1: float, angle2: float, angle3: float, angle4
 
 if __name__ == '__main__':
 
-    adamController = AdamController()
+    adamController = AdamManager()
 
     #Базовые значения
     adamController.handle_command(commands=SerializableCommands(
@@ -42,10 +42,10 @@ if __name__ == '__main__':
 
     time.sleep(5)
 
-    adamController2 = AdamController()
+    adamController2 = AdamManager()
     adamController2.handle_command(commands=HandCalculate("Left", 0, 30, 0, 0))
 
     time.sleep(5)
 
-    adamController3 = AdamController()
+    adamController3 = AdamManager()
     adamController3.handle_command(commands=HandCalculate("Right", 0, 30, 0, 0))

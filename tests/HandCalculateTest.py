@@ -5,7 +5,7 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
 
-from AdamController import AdamController
+from AdamController import AdamManager
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 import time
@@ -18,7 +18,7 @@ def HandCalculate(west: str, angle1: float, angle2: float, angle3: float):
 
 if __name__ == '__main__':
 
-    adamController = AdamController()
+    adamController = AdamManager()
 
     #Выставление в дефолтную позицию
     adamController.handle_command(commands=SerializableCommands(
@@ -32,12 +32,12 @@ if __name__ == '__main__':
 
     time.sleep(5)
 
-    adamController2 = AdamController()
+    adamController2 = AdamManager()
     adamController2.handle_command(commands=HandCalculate("left", 0, 65, 0))
 
     time.sleep(5)
 
-    adamController3 = AdamController()
+    adamController3 = AdamManager()
     adamController3.handle_command(commands=HandCalculate("right", 0, 65, 0))
     
     time.sleep(5)

@@ -5,14 +5,14 @@ import websockets
 from yrouter import route
 from yrouter_websockets import router
 
-from AdamController import AdamController
+from AdamController import AdamManager
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 #from serial_motor_control.MotorControl import MotorControl
 from signal import SIGINT, SIGTERM
 
 adamVersion = "adam-2.6"
-adamController = AdamController()
+adamController = AdamManager()
 
 async def offBoard(websocket):
     

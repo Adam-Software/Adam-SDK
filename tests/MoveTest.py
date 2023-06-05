@@ -5,14 +5,14 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
 
-from AdamController import AdamController
+from AdamController import AdamManager
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 import time
 
 if __name__ == '__main__':
 
-    adamController = AdamController()
+    adamController = AdamManager()
     #linear_velocity = (1.0, 0.0)  # движение вперед по оси X
     #angular_velocity = 0.0         # без вращения вокруг оси Z
 

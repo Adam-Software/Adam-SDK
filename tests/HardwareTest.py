@@ -1,6 +1,6 @@
 from enum import Enum
 
-from AdamController import AdamController
+from AdamController import AdamManager
 from JointController import JointController
 from JsonParser import JsonParser
 from Models.Joint import Joint
@@ -18,7 +18,7 @@ def AdamControllerJson():
                                                                         element['joint']['upper_limit'],
                                                                         element['joint']['speed'],
                                                                         element['joint']['id']))))
-    adamController = AdamController(motors)
+    adamController = AdamManager(motors)
 
     TestJsonCommand(adamController)
 

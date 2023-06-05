@@ -1,6 +1,6 @@
 import unittest
 
-from AdamController import AdamController
+from AdamController import AdamManager
 from Models.Joint import Joint
 from JointController import JointController
 from JsonParser import JsonParser
@@ -18,7 +18,7 @@ class TestProject(unittest.TestCase):
         self.AdamControllerJson()
 
     def AdamController(self):
-        adamController = AdamController(
+        adamController = AdamManager(
             motors=[Motor(name="Head", joint_controller=JointController(joint=Joint(2000, 3000, 100, 1))),
                     Motor(name="Neck", joint_controller=JointController(joint=Joint(1000, 2000, 20, 2)))])
 
@@ -35,7 +35,7 @@ class TestProject(unittest.TestCase):
                                                                             element['joint']['upper_limit'],
                                                                             element['joint']['speed'],
                                                                             element['joint']['id']))))
-        adamController = AdamController(motors)
+        adamController = AdamManager(motors)
 
         self.TestJsonCommand(adamController)
 
