@@ -1,6 +1,6 @@
 from typing import List
 
-from Models.MotorCommand import MotorCommand
+from MotorCommand import MotorCommand
 
 class SerializableCommands:
     motors: List[MotorCommand]

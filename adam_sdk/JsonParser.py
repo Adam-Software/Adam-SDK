@@ -1,4 +1,3 @@
-import sys
 import os
 import json
 from Controllers.JointController import JointController

@@ -1,12 +1,6 @@
-from turtle import right
-from AdamManager import AdamManager
-from Models.Joint import Joint
-from Controllers.JointController import JointController
-from JsonParser import JsonParser
-from Models.Motor import Motor
-from Models.MotorCommand import MotorCommand
-from Models.MotorEnum import MotorEnum
-from Models.SerializableCommands import SerializableCommands
+from adam_sdk import AdamManager
+from adam_sdk.Models.MotorCommand import MotorCommand
+from adam_sdk.Models.SerializableCommands import SerializableCommands
 import time
 
 #def AdamControllerJson():

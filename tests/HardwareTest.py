@@ -1,12 +1,12 @@
 from enum import Enum
 
-from AdamManager import AdamManager
-from Controllers.JointController import JointController
-from JsonParser import JsonParser
-from Models.Joint import Joint
-from Models.Motor import Motor
-from Models.MotorCommand import MotorCommand
-from Models.SerializableCommands import SerializableCommands
+from adam_sdk import AdamManager
+from adam_sdk.Controllers.JointController import JointController
+from adam_sdk import JsonParser
+from adam_sdk.Models.Joint import Joint
+from adam_sdk.Models.Motor import Motor
+from adam_sdk.Models.MotorCommand import MotorCommand
+from adam_sdk.Models.SerializableCommands import SerializableCommands
 
 
 def AdamControllerJson():

@@ -5,9 +5,9 @@ import websockets
 from yrouter import route
 from yrouter_websockets import router
 
-from AdamManager import AdamManager
-from Models.MotorCommand import MotorCommand
-from Models.SerializableCommands import SerializableCommands
+from adam_sdk import AdamManager
+from adam_sdk.Models.MotorCommand import MotorCommand
+from adam_sdk.Models.SerializableCommands import SerializableCommands
 #from serial_motor_control.MotorControl import MotorControl
 from signal import SIGINT, SIGTERM
 

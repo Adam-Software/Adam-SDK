@@ -1,6 +1,5 @@
-from typing import Any
-from Models.Joint import Joint
-from ServoConnection import ServoConnection
+from ..Models.Joint import Joint
+from ..ServoConnection import ServoConnection
 
 
 class JointController:
