@@ -1,8 +1,8 @@
 import unittest
 
-from AdamController import AdamManager
+from AdamManager import AdamManager
 from Models.Joint import Joint
-from JointController import JointController
+from Controllers.JointController import JointController
 from JsonParser import JsonParser
 from Models.Motor import Motor
 from Models.MotorCommand import MotorCommand

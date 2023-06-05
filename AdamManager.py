@@ -1,8 +1,8 @@
 from JsonParser import JsonParser
-from MecanumMoveController import MecanumMoveController
+from Controllers.MecanumMoveController import MecanumMoveController
 from Models.Motor import Motor
 from typing import Dict, List, Tuple
-from JointController import JointController
+from Controllers.JointController import JointController
 from Models.SerializableCommands import SerializableCommands
 from ServoConnection import ServoConnection
 

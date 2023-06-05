@@ -5,7 +5,7 @@ current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
 
-from AdamController import AdamManager
+from AdamManager import AdamManager
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 import time

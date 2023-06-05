@@ -1,7 +1,7 @@
 from enum import Enum
 
-from AdamController import AdamManager
-from JointController import JointController
+from AdamManager import AdamManager
+from Controllers.JointController import JointController
 from JsonParser import JsonParser
 from Models.Joint import Joint
 from Models.Motor import Motor

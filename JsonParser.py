@@ -1,7 +1,7 @@
 import sys
 import os
 import json
-from JointController import JointController
+from Controllers.JointController import JointController
 from Models.Joint import Joint
 from Models.Motor import Motor
 

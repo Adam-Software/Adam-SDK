@@ -5,7 +5,7 @@ import websockets
 from yrouter import route
 from yrouter_websockets import router
 
-from AdamController import AdamManager
+from AdamManager import AdamManager
 from Models.MotorCommand import MotorCommand
 from Models.SerializableCommands import SerializableCommands
 #from serial_motor_control.MotorControl import MotorControl
@@ -71,7 +71,7 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8001):
+        async with websockets.serve(router(routes), "0.0.0.0", 8000):
             await asyncio.Future()  # run forever
     except:
         print('Server crash')
