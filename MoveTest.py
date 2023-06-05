@@ -1,4 +1,4 @@
-from adam_sdk import AdamManager
+from adam_sdk.AdamManager import AdamManager
 import time
 
 if __name__ == '__main__':

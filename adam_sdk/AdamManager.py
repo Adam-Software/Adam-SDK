@@ -1,10 +1,10 @@
-from JsonParser import JsonParser
-from Controllers.MecanumMoveController import MecanumMoveController
-from Models.Motor import Motor
+from .JsonParser import JsonParser
+from .Controllers.MecanumMoveController import MecanumMoveController
+from .Models.Motor import Motor
 from typing import Dict, List, Tuple
-from Controllers.JointController import JointController
-from Models.SerializableCommands import SerializableCommands
-from ServoConnection import ServoConnection
+from .Controllers.JointController import JointController
+from .Models.SerializableCommands import SerializableCommands
+from .ServoConnection import ServoConnection
 
 
 class MetaSingleton(type):

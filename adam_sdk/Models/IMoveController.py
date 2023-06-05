@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Tuple
-from Motor import Motor
+from .Motor import Motor
 
 class IMoveController(ABC):
     @abstractmethod
