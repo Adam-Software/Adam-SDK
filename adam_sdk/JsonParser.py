@@ -11,9 +11,13 @@ class JsonParser:
 
     @staticmethod
     def _read_config():
-        f = open(f'{current}/../examples/position_range.json')
-        data = json.load(f)
-        f.close()
+        config_file_path = f"{os.environ.get('ADAM_CONFIGS_PATH')}/servo_range.config"
+        
+        if os.path.isfile(config_file_path) is False:
+            config_file_path = f'{current}/../examples/position_range.json'
+        file = open(config_file_path)
+        data = json.load(file)
+        file.close()
 
         return data
 
