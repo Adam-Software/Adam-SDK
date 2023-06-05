@@ -1,5 +1,7 @@
 from typing import Tuple
+
 from pymodbus.client.serial import ModbusSerialClient as ModbusClient
+
 
 class MecanumWheelMotor:
     def __init__(

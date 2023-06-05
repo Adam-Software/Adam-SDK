@@ -6,7 +6,6 @@ from .Models.Motor import Motor
 
 current = os.path.dirname(os.path.realpath(__file__))
 
-
 class JsonParser:
 
     @staticmethod
@@ -23,6 +22,7 @@ class JsonParser:
 
     @staticmethod
     def read_command():
+        #TODO должно быть удалено
         f = open(f'{current}/examples/SerializableCommandHead.json')
         data = json.load(f)
         f.close()
