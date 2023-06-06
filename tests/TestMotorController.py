@@ -67,5 +67,32 @@ time.sleep(5)
 # Устанавливаем скорость для каждого мотора -1 ~ 1
 move_controller.front_left.set_speed(0)
 move_controller.front_right.set_speed(0)
+
+# вариант три, с использованием AdamManager
+from adam_sdk import AdamManager
+adam_manager = AdamManager()
+# Устанавливаем скорость для каждого мотора -1 ~ 1
+
+adam_manager.move_controller.front_left.set_speed(0.1)
+adam_manager.move_controller.front_right.set_speed(0.1)
+adam_manager.move_controller.rear_left.set_speed(0.1)
+adam_manager.move_controller.rear_right.set_speed(0.1)
+
+
+# Очищаем регистры для каждого мотора с левой и право стороны
+adam_manager.move_controller.front_left.clear_registers()
+adam_manager.move_controller.front_right.clear_registers()
+
+# Получаем значения регистров для каждого мотора с левой и правой стороны
+registers1 = adam_manager.move_controller.front_left.get_registers()
+registers2 = adam_manager.move_controller.front_right.get_registers()
+
+time.sleep(5)
+
+# Устанавливаем скорость для каждого мотора -1 ~ 1
+adam_manager.move_controller.front_left.set_speed(0)
+adam_manager.move_controller.front_right.set_speed(0)
+adam_manager.move_controller.rear_left.set_speed(0)
+adam_manager.move_controller.rear_right.set_speed(0)
 move_controller.rear_left.set_speed(0)
 move_controller.rear_right.set_speed(0)
