@@ -7,8 +7,9 @@ Type=simple
 User=adam
 Group=adam
 
-WorkingDirectory=/var/lib/socket-server-daemons/
-ExecStart=/home/adam/Venv/default/bin/python3 /var/lib/socket-servers-daemons/SocketServer.py -l /var/log/socket-server-daemon.log
+RuntimeDirectory=socket-server
+WorkingDirectory=/var/lib/socket-servers-daemon/
+ExecStart=/home/adam/Venv/default/bin/python3 /var/lib/socket-servers-daemon/SocketServer.py -l /var/log/socket-server.log
 SyslogIdentifier=Socket-Server-Daemon
 Restart=always
 RestartSec=5

@@ -1,7 +1,5 @@
 import os, sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-
 import asyncio
 import json
 
@@ -16,7 +14,7 @@ from signal import SIGINT, SIGTERM
 import logging
 import argparse
 
-adamVersion = "adam-2.6"
+adamVersion = "adam-2.7"
 adamController = AdamManager()
 
 logger = logging.getLogger('Socket-Server-Daemon')
