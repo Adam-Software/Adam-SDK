@@ -1,5 +1,6 @@
-import time
+import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+import time
 from adam_sdk.Controllers.MotorController import MotorController
 from pymodbus.client.serial import ModbusSerialClient as ModbusClient
 
