@@ -20,7 +20,7 @@ rear_left = MotorController(client, 22, 0, 1)
 # Создание объекта мотора для заднего правого колеса с инверсией
 rear_right = MotorController(client, 23, 2, 3, True)
 
-# Очищаем регистры для каждого мотора с левой и право стороны
+# Очищаем регистры для каждого мотора с левой и правой стороны
 front_left.clear_registers()
 front_right.clear_registers()
 
