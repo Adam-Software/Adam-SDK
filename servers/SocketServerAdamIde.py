@@ -14,7 +14,7 @@ from adam_sdk.Models.SerializableCommands import SerializableCommands
 
 from signal import SIGINT, SIGTERM
 
-adamVersion = "adam-2.6"
+adamVersion = "adam-2.7"
 adamController = AdamManager()
 
 async def offBoard(websocket):
@@ -74,7 +74,7 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8001):
+        async with websockets.serve(router(routes), "0.0.0.0", 9001):
             await asyncio.Future()  # run forever
     except:
         print('Server crash')
