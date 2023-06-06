@@ -51,7 +51,7 @@ async def movement(websocket):
             adamController.move(linear_velocity, angular_velocity)
 
         except websockets.ConnectionClosedOK:
-            print('Debug client disconnect')
+            logger.info('movement client disconnect')
             linear_velocity = (0, 0)
             angular_velocity = 0
             adamController.move(linear_velocity, angular_velocity)
