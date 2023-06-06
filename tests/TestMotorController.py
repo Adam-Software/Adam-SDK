@@ -8,15 +8,15 @@ client = ModbusClient(
         )
 client.connect()
 
-# Очищаем регистры для каждого мотора с левой и право стороны
-front_left.clear_registers()
-front_right.clear_registers()
-
 # Создаем экземпляры MotorController для каждого мотора     
 front_left = MotorController(client, 22, 2, 3)  # Создание объекта мотора для переднего левого колеса
 front_right = MotorController(client, 23, 0, 1, True)  # Создание объекта мотора для переднего правого колеса с инверсией
 rear_left = MotorController(client, 22, 0, 1)  # Создание объекта мотора для заднего левого колеса
 rear_right = MotorController(client, 23, 2, 3, True)  # Создание объекта мотора для заднего правого колеса с инверсией
+
+# Очищаем регистры для каждого мотора с левой и право стороны
+front_left.clear_registers()
+front_right.clear_registers()
 
 # Устанавливаем скорость для каждого мотора -1 ~ 1
 front_left.set_speed(0.1)
