@@ -10,7 +10,7 @@ class JsonParser:
 
     @staticmethod
     def _read_config():
-        config_file_path = f"{os.environ.get('ADAM_CONFIGS_PATH')}/servo_range.config"
+        config_file_path = "/etc/adam_configs/servo_range.config"
         
         if os.path.isfile(config_file_path) is False:
             config_file_path = f'{current}/../examples/position_range.json'
