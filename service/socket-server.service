@@ -1,0 +1,20 @@
+[Unit]
+Description=Socket Server daemon
+After=syslog.target
+
+[Service]
+Type=simple
+User=adam
+Group=adam
+
+WorkingDirectory=/var/lib/socket-server-daemons/
+ExecStart=/home/adam/Venv/default/bin/python3 /var/lib/socket-servers-daemons/SocketServer.py -l /var/log/socket-server-daemon.log
+SyslogIdentifier=Socket-Server-Daemon
+Restart=always
+RestartSec=5
+# copied from dotnet documentation at
+# https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
