@@ -8,6 +8,10 @@ client = ModbusClient(
         )
 client.connect()
 
+# Очищаем регистры для каждого мотора с левой и право стороны
+front_left.clear_registers()
+front_right.clear_registers()
+
 # Создаем экземпляры MotorController для каждого мотора     
 front_left = MotorController(client, 22, 2, 3)  # Создание объекта мотора для переднего левого колеса
 front_right = MotorController(client, 23, 0, 1, True)  # Создание объекта мотора для переднего правого колеса с инверсией
@@ -23,11 +27,6 @@ rear_right.set_speed(-0.1)
 # Получаем значения регистров для каждого мотора с левой и правой стороны
 registers1 = front_left.get_registers()
 registers2 = front_right.get_registers()
-
-
-# Очищаем регистры для каждого мотора с левой и право стороны
-front_left.clear_registers()
-front_right.clear_registers()
 
 time.sleep(5)
 
