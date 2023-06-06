@@ -7,3 +7,10 @@
 /.idea/vcs.xml
 *.pyc
 /.idea/Adam-SDK.iml
+/build/
+/adam_sdk.egg-info/dependency_links.txt
+/dist/
+/adam_sdk.egg-info/requires.txt
+/adam_sdk.egg-info/top_level.txt
+/adam_sdk.egg-info/SOURCES.txt
+/adam_sdk.egg-info/PKG-INFO
