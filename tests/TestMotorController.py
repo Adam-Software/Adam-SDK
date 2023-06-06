@@ -67,6 +67,9 @@ time.sleep(5)
 # Устанавливаем скорость для каждого мотора -1 ~ 1
 move_controller.front_left.set_speed(0)
 move_controller.front_right.set_speed(0)
+move_controller.rear_left.set_speed(0)
+move_controller.rear_right.set_speed(0)
+
 
 # вариант три, с использованием AdamManager
 from adam_sdk import AdamManager
@@ -94,5 +97,3 @@ adam_manager.move_controller.front_left.set_speed(0)
 adam_manager.move_controller.front_right.set_speed(0)
 adam_manager.move_controller.rear_left.set_speed(0)
 adam_manager.move_controller.rear_right.set_speed(0)
-move_controller.rear_left.set_speed(0)
-move_controller.rear_right.set_speed(0)
