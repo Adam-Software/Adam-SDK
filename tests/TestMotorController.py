@@ -48,16 +48,15 @@ from adam_sdk.Controllers.MecanumMoveController import MecanumMoveController
 
 move_controller = MecanumMoveController()
 
+# Очищаем регистры для каждого мотора с левой и правой стороны
+move_controller.front_left.clear_registers()
+move_controller.front_right.clear_registers()
+
 # Устанавливаем скорость для каждого мотора -1 ~ 1
 move_controller.front_left.set_speed(0.1)
 move_controller.front_right.set_speed(0.1)
 move_controller.rear_left.set_speed(0.1)
 move_controller.rear_right.set_speed(0.1)
-
-
-# Очищаем регистры для каждого мотора с левой и право стороны
-move_controller.front_left.clear_registers()
-move_controller.front_right.clear_registers()
 
 # Получаем значения регистров для каждого мотора с левой и правой стороны
 registers1 = move_controller.front_left.get_registers()
