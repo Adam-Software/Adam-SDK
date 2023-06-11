@@ -5,7 +5,7 @@ from pymodbus.client.serial import ModbusSerialClient as ModbusClient
 class MecanumMoveController:
     def __init__(self):
         client = ModbusClient(
-            method="rtu", port="/dev/ttyS0", stopbits=1, bytesize=8, parity='N', baudrate=9600
+            method="rtu", port="/dev/ttyS0", stopbits=1, bytesize=8, parity='N', baudrate=76800
         )
         client.connect()
         
