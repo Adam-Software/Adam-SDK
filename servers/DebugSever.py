@@ -7,17 +7,13 @@ import websockets
 from yrouter import route
 from yrouter_websockets import router
 
-from adam_sdk import AdamManager
-from adam_sdk import MotorCommand
-from adam_sdk import SerializableCommands
 from signal import SIGINT, SIGTERM
 import logging
 import argparse
 
 adamVersion = "adam-2.7"
-adamController = AdamManager()
 
-logger = logging.getLogger('Socket-Server-Daemon')
+logger = logging.getLogger('Debug-Socket-Server')
 logger.setLevel(logging.INFO)
 formatstr = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 formatter = logging.Formatter(formatstr)
@@ -25,39 +21,9 @@ formatter = logging.Formatter(formatstr)
 
 async def offBoard(websocket):
     logger.info(f'offBoard client connected')
-    async for message in websocket:
-        jsonCommands = json.loads(message)
-        commands = []
-
-        for element in jsonCommands['motors']:
-            commands.append(MotorCommand(**element))
-
-        adamController.handle_command(SerializableCommands(commands))
-
 
 async def movement(websocket):
     logger.info(f'movement client connected')
-    async for message in websocket:
-        try:
-            jsonCommands = json.loads(message)
-            x = jsonCommands['move']['x']
-            y = jsonCommands['move']['y']
-            z = jsonCommands['move']['z']
-
-            linear_velocity = (x, y)
-            angular_velocity = z
-            adamController.move(linear_velocity, angular_velocity)
-
-        except websockets.ConnectionClosedOK:
-            logger.info('movement client disconnect')
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            adamController.move(linear_velocity, angular_velocity)
-        except:
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            adamController.move(linear_velocity, angular_velocity)
-
 
 async def debug(websocket):
     logger.info(f'debug client connected')
@@ -88,8 +54,8 @@ async def main():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Socket-Server-Daemon")
-    parser.add_argument('-l', '--log-file', default='/var/log/socket-server.log', help='Log files path')
+    parser = argparse.ArgumentParser(description="Debug-Socket-Server")
+    parser.add_argument('-l', '--log-file', default='debug-socket-server.log', help='Log files path')
 
     args = parser.parse_args()
     fh = logging.FileHandler(args.log_file)
