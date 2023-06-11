@@ -9,24 +9,28 @@ from yrouter_websockets import router
 
 from signal import SIGINT, SIGTERM
 import logging
-import argparse
+
+logger = logging.getLogger('Debug-Socket-Server')
+logger.setLevel(logging.DEBUG)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 adamVersion = "adam-2.7"
 
-logger = logging.getLogger('Debug-Socket-Server')
-logger.setLevel(logging.INFO)
-formatstr = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-formatter = logging.Formatter(formatstr)
-
-
 async def offBoard(websocket):
-    logger.info(f'offBoard client connected')
+    logger.debug('offBoard client connected')
 
 async def movement(websocket):
-    logger.info(f'movement client connected')
+    logger.debug('movement client connected')
 
 async def debug(websocket):
-    logger.info(f'debug client connected')
+    logger.debug('debug client connected')
+
     async for message in websocket:
         try:
             logger.info(message)
@@ -34,7 +38,6 @@ async def debug(websocket):
             logger.info('Debug client disconnect')
         except:
             logger.warning('Debug client crash')
-
 
 routes = (
     route("/"),
@@ -47,22 +50,14 @@ routes = (
 
 async def main():
     try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8000):
+        logger.debug("server start")
+        async with websockets.serve(router(routes), "0.0.0.0", 9001):
             await asyncio.Future()  # run forever
     except:
-        logger.warning('Server close with except')
+        logging.warning('server close with except')
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Debug-Socket-Server")
-    parser.add_argument('-l', '--log-file', default='debug-socket-server.log', help='Log files path')
-
-    args = parser.parse_args()
-    fh = logging.FileHandler(args.log_file)
-    fh.setLevel(logging.INFO)
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
-
     loop = asyncio.get_event_loop()
     main_task = asyncio.ensure_future(main())
     for signal in [SIGINT, SIGTERM]:
