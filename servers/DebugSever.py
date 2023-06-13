@@ -25,9 +25,9 @@ adamVersion = "adam-2.7"
 
 async def off_board(websocket):
     try:
-        message = await websocket.recv()
-        json_commands = json.loads(message)
-        logger.info(json_commands)
+        async for message in websocket:
+            json_commands = json.loads(message)
+            logger.info(json_commands)
     except websockets.ConnectionClosed:
         logger.info('off-board client normal closed')
     except Exception as err:
@@ -35,16 +35,16 @@ async def off_board(websocket):
 
 async def movement(websocket):
     try:
-        message = await websocket.recv()
-        json_commands = json.loads(message)
-        x = json_commands['move']['x']
-        y = json_commands['move']['y']
-        z = json_commands['move']['z']
+        async for message in websocket:
+            json_commands = json.loads(message)
+            x = json_commands['move']['x']
+            y = json_commands['move']['y']
+            z = json_commands['move']['z']
 
-        linear_velocity = (x, y)
-        angular_velocity = z
+            linear_velocity = (x, y)
+            angular_velocity = z
 
-        logger.info(f'{linear_velocity} {angular_velocity}')
+            logger.info(f'{linear_velocity} {angular_velocity}')
     except websockets.ConnectionClosed:
         logger.info('movement client normal closed')
         linear_velocity = (0, 0)
