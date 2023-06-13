@@ -83,8 +83,13 @@ routes = (
 
 async def main():
     logger.debug("server start")
-    async with websockets.serve(router(routes), "0.0.0.0", 9001):
-        await asyncio.Future()
+    try:
+        async with websockets.serve(router(routes), "0.0.0.0", 9001):
+            await asyncio.Future()
+    except asyncio.exceptions.CancelledError:
+        logger.info('Server normally close')
+    except Exception as err:
+        logger.error(f'Server close with exception: {err}')
 
 
 if __name__ == "__main__":
@@ -93,11 +98,11 @@ if __name__ == "__main__":
 
     for signal in [SIGINT, SIGTERM]:
         loop.add_signal_handler(signal, main_task.cancel)
-    try:
         loop.run_until_complete(main_task)
-    except Exception as error:
-        logger.error(f'Server loop close with except {error}')
-        loop.close()
-    finally:
-        logger.info('Server close')
-        loop.close()
+    #try:
+    #except Exception as error:
+    #    logger.error(f'Server loop close with except {error}')
+    #    loop.close()
+    #finally:
+    #    logger.info('Server close')
+    #    loop.close()
