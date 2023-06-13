@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 import asyncio
 import json
@@ -15,76 +16,68 @@ import logging
 import argparse
 
 adamVersion = "adam-2.7"
-adamController = AdamManager()
+adam_controller = AdamManager()
 
 logger = logging.getLogger('Socket-Server-Daemon')
-logger.setLevel(logging.INFO)
-formatstr = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-formatter = logging.Formatter(formatstr)
+logger.setLevel(logging.ERROR)
+format_str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+formatter = logging.Formatter(format_str)
 
 
-async def offBoard(websocket):
-    logger.info(f'offBoard client connected')
-    async for message in websocket:
-        jsonCommands = json.loads(message)
-        commands = []
+async def off_board(websocket):
+    logger.info(f'off-board client connected')
 
-        for element in jsonCommands['motors']:
-            commands.append(MotorCommand(**element))
+    try:
+        async for message in websocket:
+            json_commands = json.loads(message)
+            commands = []
 
-        adamController.handle_command(SerializableCommands(commands))
+            for element in json_commands['motors']:
+                commands.append(MotorCommand(**element))
+
+            adam_controller.handle_command(SerializableCommands(commands))
+    except websockets.ConnectionClosed:
+        logger.info('off-board client normal closed')
+    except Exception as err:
+        logger.info(f'off-board client error: {err}')
 
 
 async def movement(websocket):
     logger.info(f'movement client connected')
-    async for message in websocket:
-        try:
-            jsonCommands = json.loads(message)
-            x = jsonCommands['move']['x']
-            y = jsonCommands['move']['y']
-            z = jsonCommands['move']['z']
+    try:
+        async for message in websocket:
+            json_commands = json.loads(message)
+            x = json_commands['move']['x']
+            y = json_commands['move']['y']
+            z = json_commands['move']['z']
 
             linear_velocity = (x, y)
             angular_velocity = z
-            adamController.move(linear_velocity, angular_velocity)
+            adam_controller.move(linear_velocity, angular_velocity)
 
-        except websockets.ConnectionClosedOK:
-            logger.info('movement client disconnect')
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            adamController.move(linear_velocity, angular_velocity)
-        except:
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            adamController.move(linear_velocity, angular_velocity)
-
-
-async def debug(websocket):
-    logger.info(f'debug client connected')
-    async for message in websocket:
-        try:
-            logger.info(message)
-        except websockets.ConnectionClosedOK:
-            logger.info('Debug client disconnect')
-        except:
-            logger.warning('Debug client crash')
+    except websockets.ConnectionClosed:
+        logger.info('movement client normal closed')
+        linear_velocity = (0, 0)
+        angular_velocity = 0
+        adam_controller.move(linear_velocity, angular_velocity)
+    except Exception as err:
+        logger.info(f'movement client error: {err}')
+        linear_velocity = (0, 0)
+        angular_velocity = 0
+        adam_controller.move(linear_velocity, angular_velocity)
 
 
 routes = (
     route("/"),
     route(f"/{adamVersion}", subroutes=(
-        route("/off-board", offBoard, name="off-board"),
-        route("/movement", movement, name="movement"),
-        route("/debug", debug, name="debug")
+        route("/off-board", off_board, name="off-board"),
+        route("/movement", movement, name="movement")
     )))
 
 
 async def main():
-    try:
-        async with websockets.serve(router(routes), "0.0.0.0", 8000):
-            await asyncio.Future()  # run forever
-    except:
-        logger.warning('Server close with except')
+    async with websockets.serve(router(routes), "0.0.0.0", 8000):
+        await asyncio.Future()
 
 
 if __name__ == "__main__":
@@ -99,12 +92,13 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     main_task = asyncio.ensure_future(main())
+
     for signal in [SIGINT, SIGTERM]:
         loop.add_signal_handler(signal, main_task.cancel)
     try:
         loop.run_until_complete(main_task)
-    except:
+    except Exception as error:
+        logger.error(f'Server loop close with except {error}')
         loop.close()
     finally:
-        logger.info('Server close')
         loop.close()
