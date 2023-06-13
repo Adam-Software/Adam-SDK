@@ -24,18 +24,25 @@ logger.addHandler(ch)
 adamVersion = "adam-2.7"
 
 async def off_board(websocket):
-    try:
-        async for message in websocket:
+    logger.info('off_board client connect')
+    
+    while True:
+        try:
             json_commands = json.loads(message)
             logger.info(json_commands)
-    except websockets.ConnectionClosed:
-        logger.info('off-board client normal closed')
-    except Exception as err:
-        logger.info(f'off-board client error: {err}')
+        except websockets.ConnectionClosed:
+            logger.info('off-board client normal closed')
+            break
+        except Exception as err:
+            logger.info(f'off-board client error: {err}')
+            break
 
 async def movement(websocket):
-    try:
-        async for message in websocket:
+    logger.info('movement client connect')
+    
+    while True:
+        try:
+            message = await websocket.recv()
             json_commands = json.loads(message)
             x = json_commands['move']['x']
             y = json_commands['move']['y']
@@ -45,26 +52,33 @@ async def movement(websocket):
             angular_velocity = z
 
             logger.info(f'{linear_velocity} {angular_velocity}')
-    except websockets.ConnectionClosed:
-        logger.info('movement client normal closed')
-        linear_velocity = (0, 0)
-        angular_velocity = 0
-        logger.info(f'{linear_velocity} {angular_velocity}')
-    except:
-        logger.info(f'movement client error')
-        linear_velocity = (0, 0)
-        angular_velocity = 0
-        logger.info(f'{linear_velocity} {angular_velocity}')
+        except websockets.ConnectionClosed:
+            logger.info('movement client normal closed')
+            linear_velocity = (0, 0)
+            angular_velocity = 0
+            logger.info(f'{linear_velocity} {angular_velocity}')
+            break
+        except Exception as err:
+            logger.info(f'movement client error: {err}')
+            linear_velocity = (0, 0)
+            angular_velocity = 0
+            logger.info(f'{linear_velocity} {angular_velocity}')
+            break
 
 
 async def debug(websocket):
-    try:
-        message = await websocket.recv()
-        logger.info(message)
-    except websockets.ConnectionClosed:
-        logger.info('debug client normal closed')
-    except Exception as err:
-        logger.warning(f'Debug client exception: {err}')
+    logger.info('debug client connect')
+    
+    while True:
+        try:
+            message = await websocket.recv()
+            logger.info(message)
+        except websockets.ConnectionClosed:
+            logger.info('debug client normal closed')
+            break
+        except Exception as err:
+            logger.warning(f'Debug client exception: {err}')
+            break
 
 
 routes = (
