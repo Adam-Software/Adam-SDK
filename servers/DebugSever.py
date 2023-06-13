@@ -28,6 +28,7 @@ async def off_board(websocket):
     
     while True:
         try:
+            message = await websocket.recv()
             json_commands = json.loads(message)
             logger.info(json_commands)
         except websockets.ConnectionClosed:

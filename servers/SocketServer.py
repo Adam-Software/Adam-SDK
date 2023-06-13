@@ -19,58 +19,56 @@ adamVersion = "adam-2.7"
 adam_controller = AdamManager()
 
 logger = logging.getLogger('Socket-Server-Daemon')
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.INFO)
 format_str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 formatter = logging.Formatter(format_str)
 
 
 async def off_board(websocket):
-    logger.info(f'off-board client connected')
+    logger.info('off-board client connected')
 
-    try:
-        async for message in websocket:
-            json_commands = json.loads(message)
-            commands = []
+    while True:
+        try:
+            async for message in websocket:
+                json_commands = json.loads(message)
+                commands = []
 
-            for element in json_commands['motors']:
-                commands.append(MotorCommand(**element))
+                for element in json_commands['motors']:
+                    commands.append(MotorCommand(**element))
 
-            adam_controller.handle_command(SerializableCommands(commands))
-    except websockets.ConnectionClosed:
-        logger.info('off-board client normal closed')
-    except Exception as err:
-        logger.info(f'off-board client error: {err}')
+                adam_controller.handle_command(SerializableCommands(commands))
+        except websockets.ConnectionClosed:
+            logger.info('off-board client normal closed')
+            break
+        except Exception as err:
+            logger.error(f'off-board client error: {err}')
+            break
 
 
 async def movement(websocket):
-    logger.info(f'movement client connected')
-    try:
-        async for message in websocket:
-            json_commands = json.loads(message)
-            x = json_commands['move']['x']
-            y = json_commands['move']['y']
-            z = json_commands['move']['z']
+    logger.info('movement client connected')
+    while True:
+        try:
+            async for message in websocket:
+                json_commands = json.loads(message)
+                x = json_commands['move']['x']
+                y = json_commands['move']['y']
+                z = json_commands['move']['z']
 
-            linear_velocity = (x, y)
-            angular_velocity = z
+                linear_velocity = (x, y)
+                angular_velocity = z
+                adam_controller.move(linear_velocity, angular_velocity)
+
+        except websockets.ConnectionClosed:
+            logger.info('movement client normal closed')
+            linear_velocity = (0, 0)
+            angular_velocity = 0
             adam_controller.move(linear_velocity, angular_velocity)
-
-    except websockets.ConnectionClosed:
-        logger.info('movement client normal closed')
-        linear_velocity = (0, 0)
-        angular_velocity = 0
-        adam_controller.move(linear_velocity, angular_velocity)
-    except Exception as err:
-        logger.info(f'movement client error: {err}')
-        linear_velocity = (0, 0)
-        angular_velocity = 0
-        adam_controller.move(linear_velocity, angular_velocity)
-    finally:
-        logger.info('movement client on finally closed')
-        linear_velocity = (0, 0)
-        angular_velocity = 0
-        adam_controller.move(linear_velocity, angular_velocity)
-
+        except Exception as err:
+            logger.error(f'movement client error: {err}')
+            linear_velocity = (0, 0)
+            angular_velocity = 0
+            adam_controller.move(linear_velocity, angular_velocity)
 
 routes = (
     route("/"),
