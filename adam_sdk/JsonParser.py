@@ -13,7 +13,7 @@ class JsonParser:
         config_file_path = "/etc/adam_configs/servo_range.config"
         
         if os.path.isfile(config_file_path) is False:
-            config_file_path = f'{current}/../examples/position_range.json'
+            config_file_path = f'{current}/../examples/servo_range.config'
         file = open(config_file_path)
         data = json.load(file)
         file.close()
