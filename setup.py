@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name='adam-sdk',
-    version='0.0.2',
+    version='0.0.3',
     packages=['adam_sdk', 'adam_sdk.Controllers', 'adam_sdk.Models'],
     url='https://github.com/Adam-Software/Adam-SDK',
     license='MIT',
