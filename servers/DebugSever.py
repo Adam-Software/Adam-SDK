@@ -29,15 +29,16 @@ async def movement(websocket):
     logger.debug('movement client connected')
 
 async def debug(websocket):
-    logger.debug('debug client connected')
-
-    async for message in websocket:
-        try:
+    try:
+        logger.info('Debug client connect')
+        async for message in websocket:
             logger.info(message)
-        except websockets.ConnectionClosedOK:
-            logger.info('Debug client disconnect')
-        except:
-            logger.warning('Debug client crash')
+    except websockets.ConnectionClosed:
+        logger.info('Debug client disconnect')
+    except:
+        logger.warning('Debug client crash')
+    finally:
+        logger.info('Debug client disconnect on finnally block')
 
 routes = (
     route("/"),
