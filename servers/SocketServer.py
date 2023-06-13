@@ -65,6 +65,11 @@ async def movement(websocket):
         linear_velocity = (0, 0)
         angular_velocity = 0
         adam_controller.move(linear_velocity, angular_velocity)
+    finally:
+        logger.info('movement client on finally closed')
+        linear_velocity = (0, 0)
+        angular_velocity = 0
+        adam_controller.move(linear_velocity, angular_velocity)
 
 
 routes = (
@@ -101,10 +106,3 @@ if __name__ == "__main__":
     for signal in [SIGINT, SIGTERM]:
         loop.add_signal_handler(signal, main_task.cancel)
         loop.run_until_complete(main_task)
-    #try:
-
-    #except Exception as error:
-    #    logger.error(f'Server loop close with except {error}')
-    #    loop.close()
-    #finally:
-    #    loop.close()

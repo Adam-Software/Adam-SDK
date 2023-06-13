@@ -11,7 +11,7 @@ from yrouter_websockets import router
 from signal import SIGINT, SIGTERM
 import logging
 
-logger = logging.getLogger('Debug-Socket-Server')
+logger = logging.getLogger('debug-socket-server')
 logger.setLevel(logging.DEBUG)
 
 ch = logging.StreamHandler()
@@ -35,7 +35,8 @@ async def off_board(websocket):
         logger.info('off-board client normal closed')
     except Exception as err:
         logger.info(f'off-board client error: {err}')
-
+    finally:
+        logger.info('off-board client on finally closed')
 
 async def movement(websocket):
     logger.info(f'movement client connected')
@@ -49,17 +50,22 @@ async def movement(websocket):
             linear_velocity = (x, y)
             angular_velocity = z
 
-            logger.info(f'{linear_velocity} f{angular_velocity}')
+            logger.info(f'{linear_velocity} {angular_velocity}')
     except websockets.ConnectionClosed:
         logger.info('movement client normal closed')
         linear_velocity = (0, 0)
         angular_velocity = 0
-        logger.info(f'{linear_velocity} f{angular_velocity}')
+        logger.info(f'{linear_velocity} {angular_velocity}')
     except Exception as err:
         logger.info(f'movement client error: {err}')
         linear_velocity = (0, 0)
         angular_velocity = 0
-        logger.info(f'{linear_velocity} f{angular_velocity}')
+        logger.info(f'{linear_velocity} {angular_velocity}')
+    finally:
+        logger.info('movement client on finally closed')
+        linear_velocity = (0, 0)
+        angular_velocity = 0
+        logger.info(f'{linear_velocity} {angular_velocity}')
 
 
 async def debug(websocket):
@@ -71,6 +77,9 @@ async def debug(websocket):
         logger.info('debug client normal closed')
     except Exception as err:
         logger.warning(f'Debug client exception: {err}')
+    finally:
+        logger.info('debug client on finally closed')
+
 
 routes = (
     route("/"),
@@ -99,10 +108,3 @@ if __name__ == "__main__":
     for signal in [SIGINT, SIGTERM]:
         loop.add_signal_handler(signal, main_task.cancel)
         loop.run_until_complete(main_task)
-    #try:
-    #except Exception as error:
-    #    logger.error(f'Server loop close with except {error}')
-    #    loop.close()
-    #finally:
-    #    logger.info('Server close')
-    #    loop.close()
