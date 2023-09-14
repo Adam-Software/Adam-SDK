@@ -10,37 +10,42 @@ from yrouter_websockets import router
 
 from signal import SIGINT, SIGTERM
 import logging
-
-logger = logging.getLogger('debug-socket-server')
-logger.setLevel(logging.DEBUG)
-
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-logger.addHandler(ch)
+import argparse
 
 adamVersion = "adam-2.7"
 
+logger = logging.getLogger('Gamepad-Debug-Server')
+logger.setLevel(logging.INFO)
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+
+format_str = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+formatter = logging.Formatter(format_str)
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
 async def off_board(websocket):
-    logger.info('off_board client connect')
-    
+    logger.info('off-board client connected')
+
     while True:
         try:
             message = await websocket.recv()
             json_commands = json.loads(message)
-            logger.info(json_commands)
+            commands = []
+
+            for element in json_commands['motors']:
+                logger.info(f'{element}')
+
         except websockets.ConnectionClosed:
             logger.info('off-board client normal closed')
             break
         except Exception as err:
-            logger.info(f'off-board client error: {err}')
+            logger.error(f'off-board client error: {err}')
             break
 
 async def movement(websocket):
-    logger.info('movement client connect')
-    
+    logger.info('movement client connected')
     while True:
         try:
             message = await websocket.recv()
@@ -49,50 +54,23 @@ async def movement(websocket):
             y = json_commands['move']['y']
             z = json_commands['move']['z']
 
-            linear_velocity = (x, y)
-            angular_velocity = z
+            logger.info(f'X: {x} Y: {y} Z: {z}')
 
-            logger.info(f'{linear_velocity} {angular_velocity}')
         except websockets.ConnectionClosed:
             logger.info('movement client normal closed')
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            logger.info(f'{linear_velocity} {angular_velocity}')
             break
         except Exception as err:
-            logger.info(f'movement client error: {err}')
-            linear_velocity = (0, 0)
-            angular_velocity = 0
-            logger.info(f'{linear_velocity} {angular_velocity}')
+            logger.error(f'movement client error: {err}')
             break
-
-
-async def debug(websocket):
-    logger.info('debug client connect')
-    
-    while True:
-        try:
-            message = await websocket.recv()
-            logger.info(message)
-        except websockets.ConnectionClosed:
-            logger.info('debug client normal closed')
-            break
-        except Exception as err:
-            logger.warning(f'Debug client exception: {err}')
-            break
-
 
 routes = (
     route("/"),
     route(f"/{adamVersion}", subroutes=(
         route("/off-board", off_board, name="off-board"),
-        route("/movement", movement, name="movement"),
-        route("/debug", debug, name="debug")
+        route("/movement", movement, name="movement")
     )))
 
-
 async def main():
-    logger.debug("server start")
     try:
         async with websockets.serve(router(routes), "0.0.0.0", 9001):
             await asyncio.Future()
@@ -101,8 +79,8 @@ async def main():
     except Exception as err:
         logger.error(f'Server close with exception: {err}')
 
-
 if __name__ == "__main__":
+
     loop = asyncio.get_event_loop()
     main_task = asyncio.ensure_future(main())
 
