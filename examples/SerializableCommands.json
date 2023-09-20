@@ -1,23 +1,23 @@
 {
     "motors": [
       {
-        "name": "Head",
+        "name": "head",
         "goal_position": 50
       },
       {
-        "name": "Neck",
+        "name": "neck",
         "goal_position": 50
       },
       {
-        "name": "Right_UpperArm",
+        "name": "right_upper_arm",
         "goal_position": 10
       },
       {
-        "name": "Left_UpperArm",
+        "name": "left_upper_arm",
         "goal_position": 10
       },
       {
-        "name": "Chest",
+        "name": "chest",
         "goal_position": 50
       }
     ]
