@@ -2,48 +2,48 @@
   "motors":
   [
     {
-      "name": "Head",
+      "name": "head",
       "goal_position": 50,
       "speed": 1500
     },
     {
-      "name": "Neck",
+      "name": "neck",
       "goal_position": 50
     },
     {
-      "name": "Right_UpperArm",
+      "name": "right_upper_arm",
       "goal_position": 10
     },
     {
-      "name": "Left_UpperArm",
+      "name": "left_upper_arm",
       "goal_position": 10
     },
     {
-      "name": "Chest",
+      "name": "chest",
       "goal_position": 50
     },
     {
-      "name": "Left_UpperLeg",
+      "name": "left_upper_leg",
       "goal_position": 0
     },
     {
-      "name": "Right_UpperLeg",
+      "name": "right_upper_leg",
       "goal_position": 0
     },
     {
-      "name": "Left_LowerLeg",
+      "name": "left_lower_leg",
       "goal_position": 0
     },
     {
-      "name": "Right_LowerLeg",
+      "name": "right_lower_leg",
       "goal_position": 0
     },
     {
-      "name": "Left_Foot",
+      "name": "left_foot",
       "goal_position": 0
     },
     {
-      "name": "Right_Foot",
+      "name": "right_foot",
       "goal_position": 0
     }
   ]
