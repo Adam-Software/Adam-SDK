@@ -13,9 +13,11 @@ class JointController:
             self._target_position = target_position  # Установка новой целевой позиции
             goal_position = ((self._joint.upper_limit - self._joint.lower_limit) *
                              (self._target_position / 100)) + self._joint.lower_limit  # Расчет целевой позиции сервопривода
-            self._servo_connection.append_command_buffer((self._joint.id, self._joint.speed, goal_position))  # Добавление команды в буфер команд
+            
+            self._servo_connection.append_command_position_buffer((self._joint.id, goal_position))  # Добавление команды в буфер команд
 
     def set_speed(self, speed: int):
+        self._servo_connection.append_command_speed_buffer((self._joint.id, self._joint.speed))
         self._joint.speed = speed  # Установка скорости сервопривода
 
     def set_servo_connection(self, servo_connection: ServoConnection):

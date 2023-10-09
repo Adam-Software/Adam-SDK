@@ -25,10 +25,16 @@ class AdamManager(metaclass=MetaSingleton):
         self.name_to_motor = self._create_name_to_motor_mapping()  # Создание отображения имени мотора на объект мотора
         self.servo_connection = ServoConnection()  # Инициализация соединения с сервоприводом
         self._initialize_joint_controllers()  # Инициализация контроллеров сочленений
+        self._initialize_joint_speed()
         self.move_controller = MecanumMoveController()  # Инициализация контроллера движения
 
         self._update()
 
+    def _initialize_joint_speed(self):
+        for motor in self.name_to_motor.values():
+            joint = motor.joint_controller
+            joint.set_speed(joint._joint.speed)
+    
     def _parseConfigJson(self) -> List[Motor]:
         # Парсинг конфигурационного файла JSON и возвращение списка моторов
         motors = JsonParser.parse_config_json()
@@ -50,9 +56,8 @@ class AdamManager(metaclass=MetaSingleton):
         # Установка целевой позиции и скорости для мотора
         motor = self.name_to_motor[motor_name]
         motor.target_position = target_position
-
-        if speed != 0:
-            joint = motor.joint_controller
+        joint = motor.joint_controller
+        if speed != 0 & joint._joint.speed != speed:
             joint.set_speed(speed)
 
     def _update(self):
