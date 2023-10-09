@@ -17,6 +17,10 @@ class MotorController:
         self.direction = 0  # Текущее установленное направление
         self.client = client  # Клиент Modbus
         self.inverse = inverse  # Флаг инверсии направления движения
+        if self.inverse:
+            self.client.write_registers(self.direction_address, int(1), self.address)  # Запись значения направления движения в регистр
+        else:
+            self.client.write_registers(self.direction_address, int(0), self.address)  # Запись значения направления движения в регистр
 
     def set_speed(self, speed: float):
         self._set_direction(speed >= 0)  # Установка направления движения в зависимости от знака скорости
@@ -41,8 +45,11 @@ class MotorController:
         if self.inverse:
             direction = not direction  # Инвертирование направления движения, если установлен флаг инверсии
     
-        self.client.write_registers(self.direction_address, int(direction), self.address)  # Запись значения направления движения в регистр
-        self.direction = direction
+        if  self.direction != direction:
+
+            self.client.write_registers(self.direction_address, int(direction), self.address)  # Запись значения направления движения в регистр
+            
+            self.direction = direction
     
     def get_registers(self) -> List[int]:
         read_reg = self.client.read_input_registers(0, 10, self.address)  # Чтение регистров из устройства

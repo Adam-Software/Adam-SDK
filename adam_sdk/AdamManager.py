@@ -35,6 +35,8 @@ class AdamManager(metaclass=MetaSingleton):
         #TODO: Тут пахнет грязно
         for motor in motors:
             motor.start_position = motor.target_position
+            joint = motor.joint_controller
+            joint.set_speed(joint.speed)
         return motors
 
     def _create_name_to_motor_mapping(self) -> Dict[str, Motor]:
@@ -51,7 +53,7 @@ class AdamManager(metaclass=MetaSingleton):
         motor = self.name_to_motor[motor_name]
         motor.target_position = target_position
 
-        if speed != 0:
+        if speed != 0 & joint.speed != speed:
             joint = motor.joint_controller
             joint.set_speed(speed)
 
