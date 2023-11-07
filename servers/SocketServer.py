@@ -30,13 +30,16 @@ async def off_board(websocket):
     while True:
         try:
             message = await websocket.recv()
-            json_commands = json.loads(message)
-            commands = []
+            json_data = json.loads(message)
 
-            for element in json_commands['motors']:
-                commands.append(MotorCommand(**element))
+            motors = json_data.get('motors', [])
+            gif_paths = json_data.get('gif_paths')
+            move_data = json_data.get('move_data')
 
-            adam_controller.handle_command(SerializableCommands(commands))
+            motor_commands = [MotorCommand(**element) for element in motors]
+            commands = SerializableCommands(motors=motor_commands, gif_paths=gif_paths, move_data=move_data)
+
+            adam_controller.handle_command(commands)
         except websockets.ConnectionClosed:
             logger.info('off-board client normal closed')
             break

@@ -4,6 +4,7 @@ from .ServoConnection import ServoConnection
 from .Controllers.JointController import JointController
 from .Controllers.MecanumMoveController import MecanumMoveController
 from .Controllers.MecanumMoveController import MotorController
+from .Controllers.EyeController import EyeController
 from .Models.IMoveController import IMoveController
 from .Models.Joint import Joint
 from .Models.MotorCommand import MotorCommand
