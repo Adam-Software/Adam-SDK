@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package adam_manager;
+
+service AdamManagerService {
+  rpc HandleCommand(CommandRequest) returns (EmptyResponse);
+  rpc ReturnToStartPosition(EmptyRequest) returns (EmptyResponse);
+  rpc Move(MoveRequest) returns (EmptyResponse);
+}
+
+message CommandRequest {
+  repeated MotorCommand motors = 1;
+}
+
+message MotorCommand {
+  string name = 1;
+  float goal_position = 2;
+  float speed = 3;
+}
+
+message EmptyRequest {}
+
+message EmptyResponse {}
+
+message MoveRequest {
+  repeated float linear_velocity = 1;
+  float angular_velocity = 2;
+}
