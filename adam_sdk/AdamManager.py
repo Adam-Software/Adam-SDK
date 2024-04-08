@@ -1,5 +1,4 @@
 from typing import Dict, List, Tuple
-
 from .Controllers.EyeController import EyeController
 from .JsonParser import JsonParser
 from .Controllers.MecanumMoveController import MecanumMoveController
@@ -74,20 +73,10 @@ class AdamManager(metaclass=MetaSingleton):
 
     def handle_command(self, commands: SerializableCommands):
         # Обработка команд и установка целевых позиций и скоростей для моторов
-
-        if commands.motors is not None:
-            for command in commands.motors:
-                self._set_motor_target_position(
-                    command.name, command.goal_position, command.speed)
-            self._update()
-
-        if commands.move_data is not None:
-            linear_velocity, angular_velocity = self.move_data
-            self.move(linear_velocity, angular_velocity)
-
-        if commands.gif_paths is not None:
-            gif_paths_R_list , gif_paths_L_list  = self.gif_paths
-            self.display_eyes(gif_paths_R_list, gif_paths_L_list)
+        for command in commands.motors:
+            self._set_motor_target_position(
+                command.name, command.goal_position, command.speed)
+        self._update()
 
     def return_to_start_position(self):
         # Установка целевых позиций для всех моторов в исходные позиции и обновление
