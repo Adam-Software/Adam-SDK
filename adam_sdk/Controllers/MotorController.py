@@ -38,8 +38,9 @@ class MotorController:
             self.client.write_registers(self.speed_address, 1023, self.address)  # Запись значения инициализации скорости
 
     def write_speed_registers(self, speed_value: int):
-        self.client.write_registers(self.speed_address, speed_value, self.address)  # Запись значения скорости в регистр
-        self.speed = speed_value  # Обновление текущей установленной скорости
+        if speed_value != self.speed:
+            self.client.write_registers(self.speed_address, speed_value, self.address)  # Запись значения скорости в регистр
+            self.speed = speed_value  # Обновление текущей установленной скорости
 
     def _set_direction(self, direction: bool):
         if self.inverse:
