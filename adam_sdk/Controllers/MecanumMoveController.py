@@ -1,14 +1,14 @@
 from typing import Tuple
 from .MotorController import MotorController
 from pymodbus.client.serial import ModbusSerialClient as ModbusClient
-from threading import Thread, Event, Lock
-
+from threading import Thread, Lock
+import time
 class MecanumMoveController:
     def __init__(self):
 
         self.lock = Lock()  # Добавляем блокировку для синхронизации
 
-
+        self.changed = False
         # Инициализация Modbus клиента для взаимодействия с контроллерами моторов
         client = ModbusClient(
             method="rtu", port="/dev/ttyS0", stopbits=1, bytesize=8, parity='N', baudrate=76800
@@ -22,7 +22,7 @@ class MecanumMoveController:
 
         # Инициализация переменных для линейной и угловой скоростей
         self.vx = self.vy = self.wz = 0
-
+        
 
 
         # Создание и запуск потока для выполнения управления моторами
@@ -33,6 +33,8 @@ class MecanumMoveController:
     def _thread_move(self):
        while True:
             with self.lock:  # Захватываем блокировку
+                if not self.changed:
+                    continue
                 # Расчет скоростей для каждого колеса на основе линейной и угловой скоростей
                 speeds = [
                     self.vy + self.vx + self.wz,
@@ -48,11 +50,11 @@ class MecanumMoveController:
                 for motor, speed in zip([self.front_left, self.front_right, self.rear_left, self.rear_right], speeds):
                     motor.set_speed(speed)
 
+                self.changed = False
+            time.sleep(0.1)
+
     def move(self, linear_velocity: Tuple[float, float], angular_velocity: float) -> None:
         with self.lock:  # Захватываем блокировку
             self.vx, self.vy = linear_velocity
             self.wz = angular_velocity
-    
-    def stop(self):
-        self.stop_event.set()  # Устанавливаем событие остановки для завершения потока
-        self.thread_intent.join()  # Ждем завершения потока
+            self.changed = True
