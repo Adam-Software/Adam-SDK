@@ -3,6 +3,7 @@ from .JsonParser import JsonParser
 from .ServoConnection import ServoConnection
 from .Controllers.JointController import JointController
 from .Controllers.MecanumMoveController import MecanumMoveController
+from .Controllers.MecanumMoveControllerThreads import MecanumMoveControllerThreads
 from .Controllers.MecanumMoveController import MotorController
 from .Controllers.EyeController import EyeController
 from .Models.IMoveController import IMoveController

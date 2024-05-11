@@ -9,6 +9,7 @@ import adam_manager_pb2_grpc
 from adam_sdk import AdamManager
 from adam_sdk import MotorCommand
 from adam_sdk import SerializableCommands
+from adam_sdk.Controllers import MecanumMoveControllerThreads
 
 
 class AdamManagerServicer(adam_manager_pb2_grpc.AdamManagerServiceServicer):
@@ -41,7 +42,7 @@ class AdamManagerServicer(adam_manager_pb2_grpc.AdamManagerServiceServicer):
 
 
 def serve():
-    adam_manager_instance = AdamManager()
+    adam_manager_instance = AdamManager(move_controller=MecanumMoveControllerThreads())
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     adam_manager_pb2_grpc.add_AdamManagerServiceServicer_to_server(AdamManagerServicer(adam_manager_instance), server)
     server.add_insecure_port("[::]:50051")

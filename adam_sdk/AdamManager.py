@@ -20,14 +20,15 @@ class MetaSingleton(type):
 
 
 class AdamManager(metaclass=MetaSingleton):
-    def __init__(self) -> None:
+    def __init__(self, move_controller=None) -> None:
         # Инициализация контроллера
         self.motors = self._parseConfigJson()  # Парсинг конфигурационного файла JSON
         self.name_to_motor = self._create_name_to_motor_mapping()  # Создание отображения имени мотора на объект мотора
         self.servo_connection = ServoConnection()  # Инициализация соединения с сервоприводом
         self._initialize_joint_controllers()  # Инициализация контроллеров сочленений
         self._initialize_joint_speed()
-        self.move_controller = MecanumMoveController()  # Инициализация контроллера движения
+        self.move_controller = move_controller if move_controller is not None else MecanumMoveController()
+
         self.eye_controller = EyeController() # Initialize the EyeController
 
         self._update()
