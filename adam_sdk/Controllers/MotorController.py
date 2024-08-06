@@ -18,6 +18,7 @@ class MotorController:
         self.client = client  # Клиент Modbus
         self.inverse = inverse  # Флаг инверсии направления движения
         if self.inverse:
+            self.direction = 1
             self.client.write_registers(self.direction_address, int(1), self.address)  # Запись значения направления движения в регистр
         else:
             self.client.write_registers(self.direction_address, int(0), self.address)  # Запись значения направления движения в регистр
